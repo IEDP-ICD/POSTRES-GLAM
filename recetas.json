@@ -1,0 +1,27 @@
+[
+  {
+    "nombre": "Postre de Maracuyá",
+    "dificultad": "Fácil",
+    "ingredientes": [
+      "1 tarro de crema de leche (250ml)",
+      "1 lata de leche condensada",
+      "3 maracuyás (solo el jugo)",
+      "1 paquete de galletas María",
+      "Azúcar al gusto"
+    ],
+    "procedimiento": "1. Mezcla la crema de leche con la leche condensada hasta obtener una mezcla homogénea. 2. Agrega el jugo de maracuyá y mezcla bien. 3. En un molde, coloca una capa de galletas María. 4. Vierte la mezcla encima. 5. Refrigera por mínimo 4 horas. 6. Decora con las semillas y pulpa de maracuyá antes de servir.",
+    "video_youtube_id": ""
+  },
+  {
+    "nombre": "Postre de Oreo",
+    "dificultad": "Muy fácil",
+    "ingredientes": [
+      "1 paquete de galletas Oreo",
+      "1 tarro de crema de leche (250ml)",
+      "1 lata de leche condensada",
+      "Oreos para decorar"
+    ],
+    "procedimiento": "1. Tritura las Oreo (reserva algunas para decorar). 2. Mezcla la crema de leche con la leche condensada. 3. Agrega las Oreo trituradas y mezcla. 4. Vierte en moldes individuales. 5. Decora con Oreos enteras encima. 6. Lleva a la nevera por 3 horas mínimo.",
+    "video_youtube_id": ""
+  }
+]

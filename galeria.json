@@ -1,0 +1,22 @@
+[
+  {
+    "nombre": "Postre de Maracuyá",
+    "descripcion": "Nuestro bestseller con topping de maracuyá natural",
+    "archivo": "postre-maracuya.jpg"
+  },
+  {
+    "nombre": "Postre de Oreo",
+    "descripcion": "Cremoso y crocante, con trozos de galleta Oreo",
+    "archivo": "postre-oreo.jpg"
+  },
+  {
+    "nombre": "Postre de Arequipe",
+    "descripcion": "Suave y dulce, con arequipe casero",
+    "archivo": "postre-arequipe.jpg"
+  },
+  {
+    "nombre": "Postre Milo",
+    "descripcion": "El favorito de los más pequeños",
+    "archivo": "postre-milo.jpg"
+  }
+]

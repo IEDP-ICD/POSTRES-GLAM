@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║           POSTRES GLAM — Sitio Web Oficial                  ║
+  ║           Brilla en cada bocado ✨                          ║
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  ESTRUCTURA DE CARPETAS EN GITHUB:                          ║
+  ║                                                              ║
+  ║  POSTRES-GLAM/                                               ║
+  ║  ├── index.html          ← este archivo                     ║
+  ║  ├── img/                                                    ║
+  ║  │   └── logo.png        ← el logo circular de Postres Glam ║
+  ║  ├── galeria/            ← fotos de productos (JPG/PNG)     ║
+  ║  ├── recetas/            ← archivos .json con cada receta   ║
+  ║  ├── catalogo/           ← catalogo.json con los precios    ║
+  ║  ├── equipo/             ← equipo.json con el equipo        ║
+  ║  └── redes/              ← redes.json con las redes         ║
+  ║                                                              ║
+  ║  IMPORTANTE: Cada sección se alimenta de un archivo JSON.   ║
+  ║  El formato exacto de cada JSON está explicado abajo        ║
+  ║  en la sección de JavaScript de cada función.               ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="es">
+
+<head>
+  <!-- Codificación UTF-8: permite mostrar tildes, ñ y caracteres especiales -->
+  <meta charset="UTF-8" />
+
+  <!-- Vista responsive: hace que el sitio se adapte a celulares y tabletas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Título que aparece en la pestaña del navegador -->
+  <title>Postres Glam · Brilla en cada bocado</title>
+
+  <!-- Descripción para buscadores como Google -->
+  <meta name="description" content="Postres Glam — Elaboración y venta de postres caseros artesanales. Brilla en cada bocado." />
+
+  <!--
+    FUENTES DE GOOGLE FONTS
+    - Cormorant Garamond: tipografía serif elegante para títulos (similar al logo)
+    - Jost: sans-serif moderno y limpio para el cuerpo del texto
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       VARIABLES GLOBALES DE COLOR Y DISEÑO
+       Aquí están todos los colores de la marca Postres Glam.
+       Cambiar un valor aquí actualiza ese color en todo el sitio.
+       ═══════════════════════════════════════════════════════════ */
+    :root {
+      /* Colores principales extraídos del logo y el poster */
+      --rosa-fondo:     #fdf0f0;   /* Rosa pálido muy suave - fondo principal */
+      --rosa-medio:     #f5d5d5;   /* Rosa medio - fondos de secciones alternas */
+      --rosa-oscuro:    #c97a7a;   /* Rosa oscuro - acentos y bordes */
+      --dorado:         #b8962e;   /* Dorado real - color principal de marca */
+      --dorado-claro:   #d4af5a;   /* Dorado más claro - hover y brillos */
+      --dorado-suave:   #f0e0a0;   /* Dorado muy pálido - fondos de tarjetas */
+      --crema:          #faf6ee;   /* Crema cálida - fondo de secciones especiales */
+      --texto-oscuro:   #3d2b1f;   /* Marrón muy oscuro - texto principal */
+      --texto-medio:    #7a5c4e;   /* Marrón medio - texto secundario */
+      --texto-suave:    #b09080;   /* Marrón claro - textos de apoyo */
+      --blanco:         #ffffff;
+
+      /* Dimensiones y formas */
+      --radio-sm:   8px;    /* Redondeo pequeño */
+      --radio-md:   16px;   /* Redondeo mediano */
+      --radio-lg:   24px;   /* Redondeo grande */
+      --radio-xl:   40px;   /* Redondeo muy grande */
+
+      /* Sombras con tono rosado-dorado */
+      --sombra-suave: 0 4px 20px rgba(185, 130, 80, 0.12);
+      --sombra-media: 0 8px 32px rgba(185, 130, 80, 0.20);
+      --sombra-fuerte: 0 16px 48px rgba(185, 130, 80, 0.28);
+    }
+
+    /* Reset universal: elimina márgenes y padding por defecto del navegador */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box; /* El padding no aumenta el tamaño del elemento */
+    }
+
+    /* Scroll suave al hacer click en links de navegación (#seccion) */
+    html { scroll-behavior: smooth; }
+
+    /* Estilos base del cuerpo de la página */
+    body {
+      background-color: var(--rosa-fondo);
+      color: var(--texto-oscuro);
+      font-family: 'Jost', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden; /* Evita scroll horizontal accidental */
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       BARRA DE NAVEGACIÓN
+       Se queda fija arriba al hacer scroll
+       ═══════════════════════════════════════════════════════════ */
+    nav {
+      position: sticky;         /* Se pega arriba al hacer scroll */
+      top: 0;
+      z-index: 100;             /* Queda por encima de todo el contenido */
+      background: rgba(253, 240, 240, 0.95); /* Rosa semitransparente */
+      backdrop-filter: blur(10px); /* Efecto vidrio esmerilado */
+      border-bottom: 1px solid var(--rosa-medio);
+      padding: 0 2rem;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Logo a la izquierda, links a la derecha */
+    }
+
+    /* Contenedor del logo en la navegación */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    /* Imagen del logo en la navegación (pequeña) */
+    .nav-logo img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;   /* Lo hace circular */
+      object-fit: cover;
+      border: 2px solid var(--dorado-claro);
+    }
+
+    /* Nombre de la marca en la navegación */
+    .nav-logo span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--dorado);
+      letter-spacing: 0.02em;
+    }
+
+    /* Lista de links de navegación */
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    /* Cada link de navegación */
+    .nav-links a {
+      color: var(--texto-medio);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative; /* Para el subrayado animado */
+    }
+
+    /* Línea dorada que aparece debajo del link al hacer hover */
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;            /* Empieza en 0 */
+      height: 1px;
+      background: var(--dorado);
+      transition: width 0.3s; /* Animación del subrayado */
+    }
+
+    /* Al pasar el cursor: color dorado y subrayado aparece */
+    .nav-links a:hover {
+      color: var(--dorado);
+    }
+    .nav-links a:hover::after {
+      width: 100%; /* El subrayado se extiende completamente */
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       HERO: CABECERA PRINCIPAL CON LOGO Y NOMBRE
+       ═══════════════════════════════════════════════════════════ */
+    .hero {
+      min-height: 85vh;         /* Ocupa el 85% de la altura de pantalla */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+      /* Fondo con degradado radial suave desde el centro */
+      background: radial-gradient(ellipse at center,
+        #fde8e8 0%,
+        #fdf0f0 50%,
+        #faf4f0 100%);
+    }
+
+    /* Círculos decorativos de fondo (efecto bokeh de postres) */
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none; /* No interfieren con los clicks */
+    }
+
+    /* Círculo grande decorativo arriba-derecha */
+    .hero::before {
+      width: 600px;
+      height: 600px;
+      top: -200px;
+      right: -200px;
+      background: radial-gradient(circle, rgba(212, 175, 90, 0.08) 0%, transparent 70%);
+    }
+
+    /* Círculo grande decorativo abajo-izquierda */
+    .hero::after {
+      width: 500px;
+      height: 500px;
+      bottom: -150px;
+      left: -150px;
+      background: radial-gradient(circle, rgba(201, 122, 122, 0.08) 0%, transparent 70%);
+    }
+
+    /* Contenido del hero, encima de los círculos decorativos */
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+    }
+
+    /* Logo grande en el hero */
+    .hero-logo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      /* Borde dorado con sombra brillante */
+      border: 4px solid var(--dorado-claro);
+      box-shadow:
+        0 0 0 8px rgba(212, 175, 90, 0.15),  /* Aureola dorada 1 */
+        0 0 0 16px rgba(212, 175, 90, 0.08), /* Aureola dorada 2 */
+        var(--sombra-fuerte);
+      margin-bottom: 2rem;
+      /* Animación de entrada: baja suavemente al cargar */
+      animation: bajarSuave 0.8s ease-out;
+    }
+
+    /* Animación: el logo baja desde arriba al cargar */
+    @keyframes bajarSuave {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Texto pequeño "EMPRENDIMIENTO ESTUDIANTIL" encima del título */
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    /* Título principal del hero */
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 6rem); /* Se ajusta según el ancho de pantalla */
+      font-weight: 700;
+      color: var(--dorado);
+      line-height: 0.95;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* Subtítulo en cursiva (Glam) */
+    .hero h1 em {
+      font-style: italic;
+      color: var(--rosa-oscuro);
+      font-weight: 400;
+    }
+
+    /* Eslogan del negocio */
+    .hero-eslogan {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--texto-medio);
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* Botones de llamada a la acción en el hero */
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap; /* En móvil se apilan */
+    }
+
+    /* Botón principal dorado */
+    .btn-dorado {
+      background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%);
+      color: var(--blanco);
+      padding: 14px 32px;
+      border-radius: var(--radio-xl);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow: var(--sombra-media);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-block;
+    }
+
+    /* Al hacer hover sube ligeramente y la sombra crece */
+    .btn-dorado:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--sombra-fuerte);
+    }
+
+    /* Botón secundario transparente con borde dorado */
+    .btn-outline {
+      background: transparent;
+      color: var(--dorado);
+      border: 1.5px solid var(--dorado);
+      padding: 14px 32px;
+      border-radius: var(--radio-xl);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+      display: inline-block;
+    }
+
+    /* Al hacer hover se llena de dorado */
+    .btn-outline:hover {
+      background: var(--dorado-suave);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       DIVISOR DECORATIVO DORADO
+       Separador visual entre secciones
+       ═══════════════════════════════════════════════════════════ */
+    .divisor {
+      text-align: center;
+      padding: 1rem 0;
+      color: var(--dorado-claro);
+      font-size: 1.2rem;
+      letter-spacing: 0.5em;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       LAYOUT GENERAL
+       Limita el ancho del contenido y lo centra
+       ═══════════════════════════════════════════════════════════ */
+    .contenedor {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Sección genérica con padding vertical */
+    .seccion {
+      padding: 5rem 0;
+    }
+
+    /* Sección con fondo alterno (crema) */
+    .seccion-crema {
+      background: var(--crema);
+    }
+
+    /* Sección con fondo rosa medio */
+    .seccion-rosa {
+      background: var(--rosa-medio);
+    }
+
+    /* Encabezado de cada sección */
+    .seccion-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    /* Etiqueta pequeña sobre el título de sección */
+    .seccion-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rosa-oscuro);
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* Título de cada sección */
+    .seccion-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--dorado);
+      line-height: 1.2;
+    }
+
+    /* Subtítulo de la sección */
+    .seccion-header p {
+      color: var(--texto-medio);
+      max-width: 500px;
+      margin: 1rem auto 0;
+      font-weight: 300;
+      font-size: 0.95rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       MISIÓN Y VISIÓN
+       Se alimenta del archivo equipo/equipo.json
+       ═══════════════════════════════════════════════════════════ */
+    .mision-vision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+      gap: 2rem;
+    }
+
+    /* Tarjeta de misión o visión */
+    .mv-card {
+      background: var(--blanco);
+      border: 1px solid var(--dorado-suave);
+      border-radius: var(--radio-lg);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--sombra-suave);
+    }
+
+    /* Franja dorada decorativa arriba de la tarjeta */
+    .mv-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--dorado), var(--dorado-claro));
+    }
+
+    /* Ícono grande de decoración en la tarjeta */
+    .mv-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    /* Título de la tarjeta (Misión / Visión) */
+    .mv-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--dorado);
+      margin-bottom: 1rem;
+    }
+
+    /* Texto de la misión o visión */
+    .mv-card p {
+      color: var(--texto-medio);
+      font-weight: 300;
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       GALERÍA DE FOTOS
+       Lee imágenes de la carpeta /galeria/
+       ═══════════════════════════════════════════════════════════ */
+    #galeria-grid {
+      display: grid;
+      /* Columnas que se crean automáticamente según el espacio disponible */
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    /* Tarjeta de foto individual */
+    .foto-card {
+      border-radius: var(--radio-md);
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: var(--sombra-suave);
+      transition: transform 0.3s, box-shadow 0.3s;
+      background: var(--blanco);
+      border: 1px solid var(--rosa-medio);
+    }
+
+    /* Al pasar el cursor, la tarjeta se eleva */
+    .foto-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--sombra-fuerte);
+    }
+
+    /* Contenedor de la imagen con proporción fija */
+    .foto-thumb {
+      aspect-ratio: 1 / 1;   /* Cuadrado perfecto */
+      overflow: hidden;
+      background: var(--rosa-medio);
+    }
+
+    /* La imagen dentro de la tarjeta */
+    .foto-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;       /* Recorta para llenar el cuadrado */
+      transition: transform 0.4s;
+    }
+
+    /* Zoom suave al hacer hover */
+    .foto-card:hover .foto-thumb img {
+      transform: scale(1.08);
+    }
+
+    /* Información debajo de la foto */
+    .foto-info {
+      padding: 14px 16px;
+    }
+
+    /* Nombre/título de la foto */
+    .foto-nombre {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--texto-oscuro);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Descripción corta de la foto */
+    .foto-desc {
+      font-size: 0.78rem;
+      color: var(--texto-suave);
+      margin-top: 3px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       RECETAS
+       Cada receta viene de un archivo JSON en /recetas/
+       Incluye ingredientes, procedimiento y video de YouTube
+       ═══════════════════════════════════════════════════════════ */
+    #recetas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    /* Tarjeta de receta */
+    .receta-card {
+      background: var(--blanco);
+      border: 1px solid var(--rosa-medio);
+      border-radius: var(--radio-lg);
+      overflow: hidden;
+      box-shadow: var(--sombra-suave);
+      transition: box-shadow 0.3s;
+    }
+
+    .receta-card:hover {
+      box-shadow: var(--sombra-media);
+    }
+
+    /* Encabezado de la tarjeta de receta (con color de fondo) */
+    .receta-header {
+      background: linear-gradient(135deg, var(--rosa-medio), var(--dorado-suave));
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    /* Etiqueta de dificultad */
+    .receta-dificultad {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Nombre de la receta */
+    .receta-nombre {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--texto-oscuro);
+      line-height: 1.2;
+    }
+
+    /* Cuerpo de la tarjeta de receta */
+    .receta-body {
+      padding: 1.5rem;
+    }
+
+    /* Contenedor de las dos columnas: ingredientes | procedimiento */
+    .receta-cols {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr; /* Ingredientes más estrecho */
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Título de subsección dentro de la receta */
+    .receta-subtitulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--dorado);
+      margin-bottom: 0.75rem;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--dorado-suave);
+    }
+
+    /* Lista de ingredientes */
+    .ingredientes-lista {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* Cada ingrediente */
+    .ingredientes-lista li {
+      font-size: 0.85rem;
+      color: var(--texto-medio);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    /* Punto dorado antes de cada ingrediente */
+    .ingredientes-lista li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--dorado-claro);
+      font-size: 0.6rem;
+      top: 4px;
+    }
+
+    /* Texto del procedimiento */
+    .procedimiento-texto {
+      font-size: 0.85rem;
+      color: var(--texto-medio);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* Contenedor del video de YouTube */
+    .receta-video {
+      border-radius: var(--radio-sm);
+      overflow: hidden;
+      /* aspect-ratio 16:9 para el video */
+      aspect-ratio: 16 / 9;
+      background: var(--texto-oscuro);
+    }
+
+    /* El iframe del video ocupa todo el contenedor */
+    .receta-video iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       CATÁLOGO DE PRECIOS
+       Se alimenta del archivo /catalogo/catalogo.json
+       ═══════════════════════════════════════════════════════════ */
+    #catalogo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    /* Tarjeta de producto del catálogo */
+    .producto-card {
+      background: var(--blanco);
+      border: 1px solid var(--rosa-medio);
+      border-radius: var(--radio-lg);
+      overflow: hidden;
+      box-shadow: var(--sombra-suave);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .producto-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--sombra-media);
+    }
+
+    /* Si el producto tiene imagen, se muestra aquí */
+    .producto-img {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--rosa-medio), var(--dorado-suave));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .producto-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Ícono de postre si no hay imagen */
+    .producto-img .placeholder-icon {
+      font-size: 3rem;
+    }
+
+    /* Información del producto */
+    .producto-info {
+      padding: 1.25rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Categoría del producto */
+    .producto-categoria {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--rosa-oscuro);
+      font-weight: 600;
+    }
+
+    /* Nombre del producto */
+    .producto-nombre {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--texto-oscuro);
+      line-height: 1.2;
+    }
+
+    /* Descripción del producto */
+    .producto-descripcion {
+      font-size: 0.85rem;
+      color: var(--texto-medio);
+      font-weight: 300;
+      flex: 1;
+    }
+
+    /* Pie de la tarjeta: precio y sabores disponibles */
+    .producto-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid var(--rosa-medio);
+      margin-top: 4px;
+    }
+
+    /* Precio del producto */
+    .producto-precio {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--dorado);
+    }
+
+    /* Etiqueta de disponibilidad */
+    .producto-badge {
+      background: var(--dorado-suave);
+      color: var(--dorado);
+      font-size: 0.72rem;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    /* Sabores disponibles */
+    .producto-sabores {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    /* Etiqueta de cada sabor */
+    .sabor-tag {
+      background: var(--rosa-medio);
+      color: var(--texto-medio);
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       QUIÉNES SOMOS — EQUIPO
+       Se alimenta del archivo /equipo/equipo.json
+       ═══════════════════════════════════════════════════════════ */
+    #equipo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    /* Tarjeta de miembro del equipo */
+    .miembro-card {
+      background: var(--blanco);
+      border: 1px solid var(--rosa-medio);
+      border-radius: var(--radio-lg);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: var(--sombra-suave);
+      transition: transform 0.3s;
+    }
+
+    .miembro-card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* Foto del miembro del equipo */
+    .miembro-foto {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--dorado-claro);
+      box-shadow: 0 0 0 6px var(--dorado-suave);
+      margin: 0 auto 1.25rem;
+      display: block;
+    }
+
+    /* Nombre del miembro */
+    .miembro-nombre {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--texto-oscuro);
+      margin-bottom: 4px;
+    }
+
+    /* Rol en el proyecto */
+    .miembro-rol {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Descripción del miembro */
+    .miembro-desc {
+      font-size: 0.85rem;
+      color: var(--texto-medio);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       REDES SOCIALES
+       Se alimenta del archivo /redes/redes.json
+       ═══════════════════════════════════════════════════════════ */
+    #redes-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    /* Tarjeta de red social */
+    .red-card {
+      background: var(--blanco);
+      border: 1px solid var(--rosa-medio);
+      border-radius: var(--radio-lg);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      text-decoration: none;
+      box-shadow: var(--sombra-suave);
+      transition: transform 0.2s, border-color 0.2s;
+      min-width: 160px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .red-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--dorado-claro);
+    }
+
+    /* Ícono grande de la red social */
+    .red-icono {
+      font-size: 2.5rem;
+    }
+
+    /* Nombre de la red social */
+    .red-nombre {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--texto-medio);
+    }
+
+    /* Handle / usuario de la red */
+    .red-handle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--dorado);
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       ESTADOS DE CARGA — SKELETONS
+       Se muestran mientras se cargan los datos
+       ═══════════════════════════════════════════════════════════ */
+    .skeleton {
+      /* Gradiente que se mueve para simular que algo está cargando */
+      background: linear-gradient(
+        90deg,
+        var(--rosa-medio) 25%,
+        var(--rosa-fondo) 50%,
+        var(--rosa-medio) 75%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite; /* Animación continua */
+      border-radius: var(--radio-md);
+    }
+
+    /* Keyframes: el gradiente se desplaza de derecha a izquierda */
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Tarjeta esqueleto alta */
+    .skeleton-card-alta { height: 320px; }
+
+    /* Tarjeta esqueleto baja */
+    .skeleton-card-baja { height: 180px; }
+
+    /* Mensaje cuando una sección está vacía o tiene error */
+    .msg-vacio {
+      grid-column: 1 / -1;  /* Ocupa todas las columnas del grid */
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--texto-suave);
+    }
+
+    .msg-vacio .icono-grande {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .msg-vacio h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--texto-medio);
+      margin-bottom: 0.5rem;
+    }
+
+    .msg-vacio p {
+      font-size: 0.9rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       LIGHTBOX — VISOR DE FOTOS A PANTALLA COMPLETA
+       ═══════════════════════════════════════════════════════════ */
+    #lightbox {
+      display: none;             /* Oculto por defecto */
+      position: fixed;           /* Fijo, no se mueve con el scroll */
+      inset: 0;                  /* Cubre toda la pantalla */
+      background: rgba(61, 43, 31, 0.95); /* Fondo oscuro semitransparente */
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    /* Cuando se activa el lightbox */
+    #lightbox.activo {
+      display: flex;
+    }
+
+    /* La imagen grande dentro del lightbox */
+    #lightbox-img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: var(--radio-md);
+      box-shadow: var(--sombra-fuerte);
+    }
+
+    /* Botón cerrar (X) del lightbox */
+    #lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    #lightbox-close:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════ */
+    footer {
+      background: var(--texto-oscuro);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 2.5rem 2rem;
+      font-size: 0.82rem;
+    }
+
+    footer strong {
+      color: var(--dorado-claro);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       RESPONSIVE — MÓVIL (pantallas menores a 768px)
+       ═══════════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* Ocultar links de navegación en móvil */
+      .nav-links { display: none; }
+
+      /* Hero más compacto */
+      .hero { min-height: 70vh; padding: 3rem 1.5rem; }
+
+      /* Logo más pequeño en móvil */
+      .hero-logo { width: 130px; height: 130px; }
+
+      /* Contenedor con menos padding lateral */
+      .contenedor { padding: 0 1rem; }
+
+      /* Secciones con menos espacio vertical */
+      .seccion { padding: 3.5rem 0; }
+
+      /* Misión y visión en una sola columna en móvil */
+      .mision-vision-grid { grid-template-columns: 1fr; }
+
+      /* Recetas en una sola columna */
+      #recetas-grid { grid-template-columns: 1fr; }
+
+      /* Receta: ingredientes y procedimiento se apilan */
+      .receta-cols { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       BARRA DE NAVEGACIÓN
+       ═══════════════════════════════════════════════════════════ -->
+  <nav>
+    <!-- Logo en la navegación -->
+    <!-- IMPORTANTE: el logo debe estar en img/logo.png en el repositorio -->
+    <a class="nav-logo" href="#inicio">
+      <img src="img/logo.png" alt="Logo Postres Glam" />
+      <span>Postres Glam</span>
+    </a>
+
+    <!-- Links de navegación, cada uno lleva a una sección de la página -->
+    <ul class="nav-links">
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#recetas">Recetas</a></li>
+      <li><a href="#catalogo">Catálogo</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#redes">Redes</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO: PORTADA PRINCIPAL
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+
+      <!-- Logo grande centrado -->
+      <!-- IMPORTANTE: el logo debe estar en img/logo.png -->
+      <img class="hero-logo" src="img/logo.png" alt="Postres Glam" />
+
+      <!-- Etiqueta pequeña -->
+      <p class="hero-eyebrow">Emprendimiento estudiantil · IEDP</p>
+
+      <!-- Título principal -->
+      <h1>Postres<br><em>Glam</em></h1>
+
+      <!-- Eslogan -->
+      <p class="hero-eslogan">✨ Brilla en cada bocado ✨</p>
+
+      <!-- Botones de acción -->
+      <div class="hero-ctas">
+        <a class="btn-dorado" href="#catalogo">Ver catálogo</a>
+        <a class="btn-outline" href="#nosotros">Conócenos</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Separador decorativo -->
+  <div class="divisor">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SECCIÓN: MISIÓN Y VISIÓN
+       Se alimenta del archivo: equipo/equipo.json
+       Formato del archivo JSON:
+       {
+         "mision": "Texto de la misión del proyecto...",
+         "vision": "Texto de la visión del proyecto...",
+         "sobre_nosotros": "Texto breve de presentación del proyecto...",
+         "integrantes": [ ... ]
+       }
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="seccion seccion-crema" id="mision">
+    <div class="contenedor">
+      <div class="seccion-header">
+        <p class="seccion-eyebrow">Nuestra identidad</p>
+        <h2>Misión & Visión</h2>
+        <p>Lo que nos mueve y hacia dónde vamos como emprendimiento</p>
+      </div>
+
+      <!-- El JS carga la misión y visión desde equipo/equipo.json -->
+      <div class="mision-vision-grid" id="mision-vision-contenido">
+        <!-- Skeleton de carga mientras llegan los datos -->
+        <div class="skeleton" style="height: 220px;"></div>
+        <div class="skeleton" style="height: 220px;"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SECCIÓN: GALERÍA DE FOTOS
+       Se alimenta de: galeria/galeria.json
+       Formato del archivo JSON:
+       [
+         {
+           "nombre": "Postre de maracuyá",
+           "descripcion": "Nuestro postre estrella",
+           "archivo": "postre-maracuya.jpg"
+         },
+         ...
+       ]
+       Las imágenes deben estar en la carpeta galeria/
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="seccion" id="galeria">
+    <div class="contenedor">
+      <div class="seccion-header">
+        <p class="seccion-eyebrow">Nuestras creaciones</p>
+        <h2>Galería</h2>
+        <p>Cada postre es una obra de arte hecha con amor</p>
+      </div>
+
+      <!-- El JS inserta las tarjetas de fotos aquí -->
+      <div id="galeria-grid">
+        <!-- Skeletons de carga -->
+        <div class="skeleton skeleton-card-alta"></div>
+        <div class="skeleton skeleton-card-alta"></div>
+        <div class="skeleton skeleton-card-alta"></div>
+        <div class="skeleton skeleton-card-alta"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SECCIÓN: RECETAS
+       Se alimenta de: recetas/recetas.json
+       Formato del archivo JSON:
+       [
+         {
+           "nombre": "Postre de Oreo",
+           "dificultad": "Fácil",
+           "ingredientes": ["1 paquete de Oreo", "1 tarro de crema", "..."],
+           "procedimiento": "Paso 1: Triturar las Oreo...",
+           "video_youtube_id": "dQw4w9WgXcQ"
+         },
+         ...
+       ]
+       El video_youtube_id es el código que aparece en la URL de YouTube
+       Ejemplo: youtube.com/watch?v=ESTE_ES_EL_ID
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="seccion seccion-rosa" id="recetas">
+    <div class="contenedor">
+      <div class="seccion-header">
+        <p class="seccion-eyebrow">Aprende con nosotras</p>
+        <h2>Nuestras Recetas</h2>
+        <p>Ingredientes, procedimiento y video tutorial para cada postre</p>
+      </div>
+
+      <!-- El JS inserta las recetas aquí -->
+      <div id="recetas-grid">
+        <!-- Skeletons de carga -->
+        <div class="skeleton skeleton-card-alta"></div>
+        <div class="skeleton skeleton-card-alta"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SECCIÓN: CATÁLOGO DE PRECIOS
+       Se alimenta de: catalogo/catalogo.json
+       Formato del archivo JSON:
+       [
+         {
+           "nombre": "Postre de Maracuyá",
+           "categoria": "Postres fríos",
+           "descripcion": "Cremoso postre con topping de maracuyá natural",
+           "precio": "$7.000",
+           "sabores": ["Maracuyá", "Oreo", "Arequipe"],
+           "imagen": "postre-maracuya.jpg",
+           "disponible": true
+         },
+         ...
+       ]
+       Las imágenes de los productos deben estar en catalogo/
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="seccion" id="catalogo">
+    <div class="contenedor">
+      <div class="seccion-header">
+        <p class="seccion-eyebrow">Nuestros precios</p>
+        <h2>Catálogo</h2>
+        <p>Deliciosos postres a precios accesibles · Pide el tuyo hoy 🍮</p>
+      </div>
+
+      <!-- El JS inserta las tarjetas de productos aquí -->
+      <div id="catalogo-grid">
+        <!-- Skeletons de carga -->
+        <div class="skeleton skeleton-card-alta"></div>
+        <div class="skeleton skeleton-card-alta"></div>
+        <div class="skeleton skeleton-card-alta"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SECCIÓN: QUIÉNES SOMOS — EQUIPO
+       Se alimenta de: equipo/equipo.json (misma que misión/visión)
+       Dentro del JSON, el array "integrantes":
+       {
+         "integrantes": [
+           {
+             "nombre": "Nombre del estudiante",
+             "rol": "Repostera principal",
+             "descripcion": "Texto breve sobre esta persona y su aporte al proyecto",
+             "foto": "foto-nombre.jpg"
+           },
+           ...
+         ]
+       }
+       Las fotos deben estar en la carpeta equipo/
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="seccion seccion-crema" id="nosotros">
+    <div class="contenedor">
+      <div class="seccion-header">
+        <p class="seccion-eyebrow">Detrás de cada postre</p>
+        <h2>Quiénes Somos</h2>
+        <!-- El JS carga el texto "sobre nosotros" del JSON aquí -->
+        <p id="sobre-nosotros-texto">Cargando...</p>
+      </div>
+
+      <!-- El JS inserta las tarjetas del equipo aquí -->
+      <div id="equipo-grid">
+        <!-- Skeletons de carga -->
+        <div class="skeleton skeleton-card-baja"></div>
+        <div class="skeleton skeleton-card-baja"></div>
+        <div class="skeleton skeleton-card-baja"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SECCIÓN: REDES SOCIALES
+       Se alimenta de: redes/redes.json
+       Formato del archivo JSON:
+       [
+         {
+           "red": "Instagram",
+           "icono": "📸",
+           "handle": "@postresglam",
+           "url": "https://instagram.com/postresglam"
+         },
+         {
+           "red": "TikTok",
+           "icono": "🎵",
+           "handle": "@postresglam",
+           "url": "https://tiktok.com/@postresglam"
+         },
+         {
+           "red": "Facebook",
+           "icono": "📘",
+           "handle": "Postres Glam",
+           "url": "https://facebook.com/postresglam"
+         }
+       ]
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="seccion" id="redes">
+    <div class="contenedor">
+      <div class="seccion-header">
+        <p class="seccion-eyebrow">Síguenos</p>
+        <h2>Redes Sociales</h2>
+        <p>Encuentra nuestro contenido y pide tu postre por estas plataformas</p>
+      </div>
+
+      <!-- El JS inserta las tarjetas de redes aquí -->
+      <div id="redes-grid">
+        <!-- Skeletons de carga -->
+        <div class="skeleton" style="height:140px; width:160px; border-radius:var(--radio-lg)"></div>
+        <div class="skeleton" style="height:140px; width:160px; border-radius:var(--radio-lg)"></div>
+        <div class="skeleton" style="height:140px; width:160px; border-radius:var(--radio-lg)"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════ -->
+  <footer>
+    <p><strong>Postres Glam</strong></p>
+    <p style="margin-top:8px;">✨ Brilla en cada bocado · Emprendimiento estudiantil IEDP ✨</p>
+    <p style="margin-top:8px; font-size:0.75rem;">
+      Proyecto académico · Institución Educativa La Divina Pastora · Cúcuta
+    </p>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       LIGHTBOX — Visor de fotos a pantalla completa
+       ═══════════════════════════════════════════════════════════ -->
+  <div id="lightbox">
+    <button id="lightbox-close" onclick="cerrarLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="Foto ampliada" />
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       JAVASCRIPT
+       Toda la lógica para cargar el contenido desde los archivos JSON
+       ═══════════════════════════════════════════════════════════ -->
+  <script>
+
+    /*
+    ══════════════════════════════════════════════════════════════
+    FUNCIÓN PRINCIPAL: carga todo el contenido al cargar la página
+    window.addEventListener('load', ...) se ejecuta cuando todo el
+    HTML ya está en pantalla
+    ══════════════════════════════════════════════════════════════
+    */
+    window.addEventListener('load', function () {
+      // Carga todas las secciones en paralelo para que sea más rápido
+      // Promise.allSettled espera a que todas terminen, incluso si alguna falla
+      Promise.allSettled([
+        cargarEquipoYMision(),  // Carga misión, visión y equipo del mismo JSON
+        cargarGaleria(),
+        cargarRecetas(),
+        cargarCatalogo(),
+        cargarRedes()
+      ]);
+    });
+
+
+    /*
+    ══════════════════════════════════════════════════════════════
+    FUNCIÓN: cargarEquipoYMision
+    Lee el archivo equipo/equipo.json y llena:
+    - La sección de Misión y Visión
+    - El texto "Sobre nosotros"
+    - Las tarjetas del equipo
+    ══════════════════════════════════════════════════════════════
+    */
+    async function cargarEquipoYMision() {
+      try {
+        // fetch lee el archivo JSON desde la carpeta del repositorio
+        const resp = await fetch('equipo/equipo.json');
+
+        // Si el archivo no existe o hay error HTTP, lanzar excepción
+        if (!resp.ok) throw new Error('No se encontró equipo.json');
+
+        // Convertir la respuesta en objeto JavaScript
+        const datos = await resp.json();
+
+        // ── Misión y Visión ─────────────────────────────────────
+        const contenedor = document.getElementById('mision-vision-contenido');
+        contenedor.innerHTML = `
+          <div class="mv-card">
+            <span class="mv-icon">🎯</span>
+            <h3>Nuestra Misión</h3>
+            <p>${datos.mision || 'Próximamente...'}</p>
+          </div>
+          <div class="mv-card">
+            <span class="mv-icon">🌟</span>
+            <h3>Nuestra Visión</h3>
+            <p>${datos.vision || 'Próximamente...'}</p>
+          </div>
+        `;
+
+        // ── Texto "Sobre nosotros" ───────────────────────────────
+        const textoSN = document.getElementById('sobre-nosotros-texto');
+        textoSN.textContent = datos.sobre_nosotros || 'Somos estudiantes apasionadas por la repostería.';
+
+        // ── Tarjetas del equipo ──────────────────────────────────
+        const gridEquipo = document.getElementById('equipo-grid');
+
+        // Si no hay integrantes definidos, mostrar mensaje
+        if (!datos.integrantes || datos.integrantes.length === 0) {
+          gridEquipo.innerHTML = mensajeVacio('👩‍🍳', 'Próximamente', 'Aquí aparecerán las integrantes del proyecto.');
+          return;
+        }
+
+        // Generar una tarjeta por cada integrante
+        gridEquipo.innerHTML = datos.integrantes.map(persona => `
+          <div class="miembro-card">
+            <img
+              class="miembro-foto"
+              src="equipo/${persona.foto}"
+              alt="${persona.nombre}"
+              onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(persona.nombre)}&background=f5d5d5&color=b8962e&size=200'"
+            />
+            <!-- onerror: si la foto no carga, genera una imagen con las iniciales del nombre -->
+            <div class="miembro-nombre">${persona.nombre}</div>
+            <div class="miembro-rol">${persona.rol}</div>
+            <p class="miembro-desc">${persona.descripcion}</p>
+          </div>
+        `).join('');
+
+      } catch (error) {
+        // Si el archivo no existe, mostrar plantillas vacías para que el contenido no se pierda
+        document.getElementById('mision-vision-contenido').innerHTML = `
+          <div class="mv-card">
+            <span class="mv-icon">🎯</span>
+            <h3>Nuestra Misión</h3>
+            <p style="color:var(--texto-suave)">Agrega el archivo equipo/equipo.json con tu misión.</p>
+          </div>
+          <div class="mv-card">
+            <span class="mv-icon">🌟</span>
+            <h3>Nuestra Visión</h3>
+            <p style="color:var(--texto-suave)">Agrega el archivo equipo/equipo.json con tu visión.</p>
+          </div>
+        `;
+        document.getElementById('sobre-nosotros-texto').textContent = 'Información próximamente.';
+        document.getElementById('equipo-grid').innerHTML = mensajeVacio('👩‍🍳', 'Agrega el equipo', 'Crea el archivo equipo/equipo.json para mostrar el equipo.');
+        console.warn('equipo.json no encontrado:', error.message);
+      }
+    }
+
+
+    /*
+    ══════════════════════════════════════════════════════════════
+    FUNCIÓN: cargarGaleria
+    Lee galeria/galeria.json y muestra las fotos
+    ══════════════════════════════════════════════════════════════
+    */
+    async function cargarGaleria() {
+      const grid = document.getElementById('galeria-grid');
+      try {
+        const resp = await fetch('galeria/galeria.json');
+        if (!resp.ok) throw new Error('No se encontró galeria.json');
+        const fotos = await resp.json();
+
+        if (!fotos || fotos.length === 0) {
+          grid.innerHTML = mensajeVacio('📷', 'Galería vacía', 'Agrega imágenes y actualiza galeria/galeria.json');
+          return;
+        }
+
+        // Generar tarjeta por cada foto del JSON
+        grid.innerHTML = fotos.map(foto => `
+          <div class="foto-card" onclick="abrirLightbox('galeria/${foto.archivo}', '${escHtml(foto.nombre)}')">
+            <div class="foto-thumb">
+              <img
+                src="galeria/${foto.archivo}"
+                alt="${escHtml(foto.nombre)}"
+                loading="lazy"
+              />
+              <!-- loading="lazy": la imagen solo se carga cuando el usuario llega a ella -->
+            </div>
+            <div class="foto-info">
+              <div class="foto-nombre">${escHtml(foto.nombre)}</div>
+              <div class="foto-desc">${escHtml(foto.descripcion || '')}</div>
+            </div>
+          </div>
+        `).join('');
+
+      } catch (error) {
+        grid.innerHTML = mensajeVacio('📷', 'Sin galería aún', 'Crea el archivo galeria/galeria.json para mostrar tus fotos.');
+        console.warn('galeria.json no encontrado:', error.message);
+      }
+    }
+
+
+    /*
+    ══════════════════════════════════════════════════════════════
+    FUNCIÓN: cargarRecetas
+    Lee recetas/recetas.json y muestra las tarjetas de recetas
+    con ingredientes, procedimiento y video de YouTube embebido
+    ══════════════════════════════════════════════════════════════
+    */
+    async function cargarRecetas() {
+      const grid = document.getElementById('recetas-grid');
+      try {
+        const resp = await fetch('recetas/recetas.json');
+        if (!resp.ok) throw new Error('No se encontró recetas.json');
+        const recetas = await resp.json();
+
+        if (!recetas || recetas.length === 0) {
+          grid.innerHTML = mensajeVacio('🍮', 'Sin recetas aún', 'Agrega recetas en recetas/recetas.json');
+          return;
+        }
+
+        grid.innerHTML = recetas.map(receta => {
+          // Generar lista de ingredientes (cada uno en un <li>)
+          const ingredientesHTML = (receta.ingredientes || [])
+            .map(ing => `<li>${escHtml(ing)}</li>`)
+            .join('');
+
+          // Generar el iframe del video de YouTube si hay un ID
+          // El ID de YouTube está en la URL: youtube.com/watch?v=ESTE_ID
+          const videoHTML = receta.video_youtube_id
+            ? `<div class="receta-video">
+                 <iframe
+                   src="https://www.youtube.com/embed/${receta.video_youtube_id}"
+                   title="Tutorial: ${escHtml(receta.nombre)}"
+                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                   allowfullscreen
+                 ></iframe>
+               </div>`
+            : ''; // Si no hay video, no muestra nada
+
+          return `
+            <div class="receta-card">
+              <div class="receta-header">
+                <div class="receta-dificultad">${escHtml(receta.dificultad || 'Receta')}</div>
+                <div class="receta-nombre">${escHtml(receta.nombre)}</div>
+              </div>
+              <div class="receta-body">
+                <div class="receta-cols">
+                  <!-- Columna de ingredientes -->
+                  <div>
+                    <div class="receta-subtitulo">Ingredientes</div>
+                    <ul class="ingredientes-lista">${ingredientesHTML}</ul>
+                  </div>
+                  <!-- Columna de procedimiento -->
+                  <div>
+                    <div class="receta-subtitulo">Procedimiento</div>
+                    <p class="procedimiento-texto">${escHtml(receta.procedimiento || '')}</p>
+                  </div>
+                </div>
+                ${videoHTML}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch (error) {
+        grid.innerHTML = mensajeVacio('🍮', 'Sin recetas aún', 'Crea el archivo recetas/recetas.json para mostrar tus recetas.');
+        console.warn('recetas.json no encontrado:', error.message);
+      }
+    }
+
+
+    /*
+    ══════════════════════════════════════════════════════════════
+    FUNCIÓN: cargarCatalogo
+    Lee catalogo/catalogo.json y muestra las tarjetas de productos
+    ══════════════════════════════════════════════════════════════
+    */
+    async function cargarCatalogo() {
+      const grid = document.getElementById('catalogo-grid');
+      try {
+        const resp = await fetch('catalogo/catalogo.json');
+        if (!resp.ok) throw new Error('No se encontró catalogo.json');
+        const productos = await resp.json();
+
+        if (!productos || productos.length === 0) {
+          grid.innerHTML = mensajeVacio('🛍️', 'Catálogo vacío', 'Agrega productos en catalogo/catalogo.json');
+          return;
+        }
+
+        grid.innerHTML = productos.map(prod => {
+          // Si tiene imagen, mostrarla; si no, mostrar un ícono
+          const imgHTML = prod.imagen
+            ? `<img src="catalogo/${prod.imagen}" alt="${escHtml(prod.nombre)}" />`
+            : `<span class="placeholder-icon">🍮</span>`;
+
+          // Generar etiquetas de sabores disponibles
+          const saboresHTML = (prod.sabores || [])
+            .map(s => `<span class="sabor-tag">${escHtml(s)}</span>`)
+            .join('');
+
+          // Etiqueta de disponibilidad
+          const badge = prod.disponible !== false
+            ? '<span class="producto-badge">Disponible</span>'
+            : '<span class="producto-badge" style="background:#f5d5d5;color:var(--rosa-oscuro)">Agotado</span>';
+
+          return `
+            <div class="producto-card">
+              <div class="producto-img">${imgHTML}</div>
+              <div class="producto-info">
+                <div class="producto-categoria">${escHtml(prod.categoria || 'Postre')}</div>
+                <div class="producto-nombre">${escHtml(prod.nombre)}</div>
+                <p class="producto-descripcion">${escHtml(prod.descripcion || '')}</p>
+                ${saboresHTML ? `<div class="producto-sabores">${saboresHTML}</div>` : ''}
+                <div class="producto-footer">
+                  <span class="producto-precio">${escHtml(prod.precio)}</span>
+                  ${badge}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch (error) {
+        grid.innerHTML = mensajeVacio('🛍️', 'Sin catálogo aún', 'Crea el archivo catalogo/catalogo.json para mostrar tus productos.');
+        console.warn('catalogo.json no encontrado:', error.message);
+      }
+    }
+
+
+    /*
+    ══════════════════════════════════════════════════════════════
+    FUNCIÓN: cargarRedes
+    Lee redes/redes.json y muestra las tarjetas de redes sociales
+    ══════════════════════════════════════════════════════════════
+    */
+    async function cargarRedes() {
+      const grid = document.getElementById('redes-grid');
+      try {
+        const resp = await fetch('redes/redes.json');
+        if (!resp.ok) throw new Error('No se encontró redes.json');
+        const redes = await resp.json();
+
+        if (!redes || redes.length === 0) {
+          grid.innerHTML = mensajeVacio('📱', 'Sin redes aún', 'Agrega las redes en redes/redes.json');
+          return;
+        }
+
+        // Cada red es un link que abre en nueva pestaña
+        grid.innerHTML = redes.map(red => `
+          <a
+            class="red-card"
+            href="${red.url}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <!-- rel="noopener noreferrer": medida de seguridad para links externos -->
+            <span class="red-icono">${red.icono || '🔗'}</span>
+            <span class="red-nombre">${escHtml(red.red)}</span>
+            <span class="red-handle">${escHtml(red.handle)}</span>
+          </a>
+        `).join('');
+
+      } catch (error) {
+        grid.innerHTML = mensajeVacio('📱', 'Sin redes aún', 'Crea el archivo redes/redes.json con los links de tus redes sociales.');
+        console.warn('redes.json no encontrado:', error.message);
+      }
+    }
+
+
+    /*
+    ══════════════════════════════════════════════════════════════
+    FUNCIONES DEL LIGHTBOX
+    ══════════════════════════════════════════════════════════════
+    */
+
+    // Abre el lightbox mostrando la imagen en grande
+    function abrirLightbox(src, alt) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-img').alt = alt;
+      document.getElementById('lightbox').classList.add('activo');
+      document.body.style.overflow = 'hidden'; // Bloquea el scroll del fondo
+    }
+
+    // Cierra el lightbox
+    function cerrarLightbox() {
+      document.getElementById('lightbox').classList.remove('activo');
+      document.body.style.overflow = ''; // Restaura el scroll
+    }
+
+    // Cerrar al hacer click en el fondo oscuro (no en la imagen)
+    document.getElementById('lightbox').addEventListener('click', function (e) {
+      if (e.target === this) cerrarLightbox();
+    });
+
+    // Cerrar con la tecla Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') cerrarLightbox();
+    });
+
+
+    /*
+    ══════════════════════════════════════════════════════════════
+    FUNCIONES AUXILIARES
+    ══════════════════════════════════════════════════════════════
+    */
+
+    // Genera HTML para cuando una sección está vacía
+    function mensajeVacio(icono, titulo, descripcion) {
+      return `
+        <div class="msg-vacio">
+          <div class="icono-grande">${icono}</div>
+          <h3>${titulo}</h3>
+          <p>${descripcion}</p>
+        </div>
+      `;
+    }
+
+    /*
+    escHtml: función de seguridad
+    Convierte caracteres especiales en HTML para evitar que
+    contenido del JSON pueda romper el diseño o ser malicioso
+    Por ejemplo: < se convierte en &lt;
+    */
+    function escHtml(texto) {
+      if (typeof texto !== 'string') return '';
+      return texto
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+  </script>
+
+</body>
+</html>
