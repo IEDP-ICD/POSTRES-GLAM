@@ -1,0 +1,41 @@
+[
+  {
+    "nombre": "Postre Personal",
+    "categoria": "Postres fríos",
+    "descripcion": "Postre cremoso en recipiente individual, perfecto para un antojo personal. Elige tu sabor favorito.",
+    "precio": "$7.000",
+    "sabores": [
+      "Maracuyá",
+      "Oreo",
+      "Arequipe",
+      "Milo",
+      "Leche Klim"
+    ],
+    "imagen": "postre-personal.jpg",
+    "disponible": true
+  },
+  {
+    "nombre": "Postre Familiar",
+    "categoria": "Postres fríos",
+    "descripcion": "Presentación grande ideal para compartir en familia o eventos especiales.",
+    "precio": "$25.000",
+    "sabores": [
+      "Maracuyá",
+      "Oreo",
+      "Arequipe"
+    ],
+    "imagen": "postre-familiar.jpg",
+    "disponible": true
+  },
+  {
+    "nombre": "Combo x3",
+    "categoria": "Combos",
+    "descripcion": "Tres postres personales a elección. Ahorra pidiendo en combo.",
+    "precio": "$18.000",
+    "sabores": [
+      "A elección"
+    ],
+    "imagen": "",
+    "disponible": true
+  }
+]
