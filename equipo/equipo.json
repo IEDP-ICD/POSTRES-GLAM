@@ -1,0 +1,25 @@
+{
+  "mision": "Ofrecer postres caseros artesanales de alta calidad, elaborados con ingredientes seleccionados, que brinden una experiencia dulce y memorable a nuestros clientes, apoyando el desarrollo de habilidades emprendedoras en jóvenes estudiantes.",
+  "vision": "Ser reconocidas en Cúcuta como el emprendimiento estudiantil de repostería más innovador y confiable, expandiendo nuestro catálogo y llegando a más clientes a través de canales digitales para el año 2026.",
+  "sobre_nosotros": "Somos un grupo de estudiantes de la Institución Educativa La Divina Pastora apasionadas por la repostería. Postres Glam nació como un proyecto académico que se convirtió en un emprendimiento real, donde combinamos creatividad, sabor y glamour en cada postre.",
+  "integrantes": [
+    {
+      "nombre": "Nombre Apellido",
+      "rol": "Repostera principal",
+      "descripcion": "Encargada de la elaboración y presentación de los postres. Le apasiona experimentar con nuevos sabores.",
+      "foto": "estudiante1.jpg"
+    },
+    {
+      "nombre": "Nombre Apellido",
+      "rol": "Marketing y redes",
+      "descripcion": "Responsable de la imagen de la marca, las redes sociales y la estrategia de ventas del emprendimiento.",
+      "foto": "estudiante2.jpg"
+    },
+    {
+      "nombre": "Nombre Apellido",
+      "rol": "Diseño y logística",
+      "descripcion": "Se encarga del diseño de empaques, la gestión de pedidos y la logística de entrega.",
+      "foto": "estudiante3.jpg"
+    }
+  ]
+}
