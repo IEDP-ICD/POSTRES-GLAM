@@ -520,6 +520,48 @@
       transform: scale(1.08);
     }
 
+    /* ═══════════════════════════════════════════════════════════
+       POSTERS PROMOCIONALES
+       Lee imágenes de la carpeta /posters/
+       ═══════════════════════════════════════════════════════════ */
+    #posters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .poster-card {
+      border-radius: var(--radio-md);
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: var(--sombra-suave);
+      transition: transform 0.3s, box-shadow 0.3s;
+      background: var(--blanco);
+      border: 1px solid var(--rosa-medio);
+    }
+
+    .poster-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--sombra-fuerte);
+    }
+
+    .poster-thumb {
+      aspect-ratio: 2 / 3;   /* Proporción real de los posters */
+      overflow: hidden;
+      background: var(--rosa-medio);
+    }
+
+    .poster-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+
+    .poster-card:hover .poster-thumb img {
+      transform: scale(1.05);
+    }
+
     /* Información debajo de la foto */
     .foto-info {
       padding: 14px 16px;
@@ -1086,6 +1128,7 @@
     <!-- Links de navegación, cada uno lleva a una sección de la página -->
     <ul class="nav-links">
       <li><a href="#galeria">Galería</a></li>
+      <li><a href="#posters">Posters</a></li>
       <li><a href="#recetas">Recetas</a></li>
       <li><a href="#catalogo">Catálogo</a></li>
       <li><a href="#nosotros">Nosotros</a></li>
@@ -1179,6 +1222,35 @@
 
       <!-- El JS inserta las tarjetas de fotos aquí -->
       <div id="galeria-grid">
+        <!-- Skeletons de carga -->
+        <div class="skeleton skeleton-card-alta"></div>
+        <div class="skeleton skeleton-card-alta"></div>
+        <div class="skeleton skeleton-card-alta"></div>
+        <div class="skeleton skeleton-card-alta"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SECCIÓN: POSTERS PROMOCIONALES
+       Se alimenta de: posters/posters.json
+       Formato del archivo JSON:
+       [
+         { "nombre": "Postre de Maracuyá", "archivo": "poster-maracuya.jpg" },
+         ...
+       ]
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="seccion" id="posters">
+    <div class="contenedor">
+      <div class="seccion-header">
+        <p class="seccion-eyebrow">Promociones</p>
+        <h2>Posters Promocionales</h2>
+        <p>Nuestros posters para redes y punto de venta</p>
+      </div>
+
+      <!-- El JS inserta los posters aquí -->
+      <div id="posters-grid">
         <!-- Skeletons de carga -->
         <div class="skeleton skeleton-card-alta"></div>
         <div class="skeleton skeleton-card-alta"></div>
@@ -1382,6 +1454,7 @@
       Promise.allSettled([
         cargarEquipoYMision(),  // Carga misión, visión y equipo del mismo JSON
         cargarGaleria(),
+        cargarPosters(),
         cargarRecetas(),
         cargarCatalogo(),
         cargarRedes()
@@ -1513,6 +1586,43 @@
       } catch (error) {
         grid.innerHTML = mensajeVacio('📷', 'Sin galería aún', 'Crea el archivo galeria/galeria.json para mostrar tus fotos.');
         console.warn('galeria.json no encontrado:', error.message);
+      }
+    }
+
+
+    /*
+    ══════════════════════════════════════════════════════════════
+    FUNCIÓN: cargarPosters
+    Lee posters/posters.json y muestra los posters promocionales
+    ══════════════════════════════════════════════════════════════
+    */
+    async function cargarPosters() {
+      const grid = document.getElementById('posters-grid');
+      try {
+        const resp = await fetch('posters/posters.json');
+        if (!resp.ok) throw new Error('No se encontró posters.json');
+        const posters = await resp.json();
+
+        if (!posters || posters.length === 0) {
+          grid.innerHTML = mensajeVacio('🖼️', 'Sin posters aún', 'Agrega imágenes y actualiza posters/posters.json');
+          return;
+        }
+
+        grid.innerHTML = posters.map(poster => `
+          <div class="poster-card" onclick="abrirLightbox('posters/${poster.archivo}', '${escHtml(poster.nombre)}')">
+            <div class="poster-thumb">
+              <img
+                src="posters/${poster.archivo}"
+                alt="${escHtml(poster.nombre)}"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        `).join('');
+
+      } catch (error) {
+        grid.innerHTML = mensajeVacio('🖼️', 'Sin posters aún', 'Crea el archivo posters/posters.json para mostrar tus posters.');
+        console.warn('posters.json no encontrado:', error.message);
       }
     }
 
