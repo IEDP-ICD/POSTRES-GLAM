@@ -11,31 +11,7 @@
       "Milo",
       "Leche Klim"
     ],
-    "imagen": "postre-arequipe.jpeg",
-    "disponible": true
-  },
-  {
-    "nombre": "Postre Familiar",
-    "categoria": "Postres fríos",
-    "descripcion": "Presentación grande ideal para compartir en familia o eventos especiales.",
-    "precio": "$25.000",
-    "sabores": [
-      "Maracuyá",
-      "Oreo",
-      "Arequipe"
-    ],
-    "imagen": "postre-familiar.jpg",
-    "disponible": true
-  },
-  {
-    "nombre": "Combo x3",
-    "categoria": "Combos",
-    "descripcion": "Tres postres personales a elección. Ahorra pidiendo en combo.",
-    "precio": "$18.000",
-    "sabores": [
-      "A elección"
-    ],
-    "imagen": "",
+    "imagen": "maracuya.png",
     "disponible": true
   }
 ]
