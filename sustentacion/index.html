@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SUSTENTACIÓN DEL PROYECTO — POSTRES GLAM                     ║
+  ║  Página autocontenida, no enlazada desde el sitio principal.  ║
+  ║  Accesible solo escribiendo la URL: /sustentacion/            ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Sustentación · Postres Glam</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══ Paleta idéntica a la del sitio principal ═══ */
+    :root {
+      --rosa-fondo:   #fdf0f0;
+      --rosa-medio:   #f5d5d5;
+      --rosa-oscuro:  #c97a7a;
+      --dorado:       #b8962e;
+      --dorado-claro: #d4af5a;
+      --dorado-suave: #f0e0a0;
+      --crema:        #faf6ee;
+      --texto-oscuro: #3d2b1f;
+      --texto-medio:  #7a5c4e;
+      --texto-suave:  #b09080;
+      --blanco:       #ffffff;
+
+      --radio: 24px;
+      --sombra: 0 18px 46px rgba(185, 130, 80, .22);
+      --fuente-display: "Cormorant Garamond", serif;
+      --fuente-cuerpo:  "Jost", sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: var(--rosa-fondo);
+      font-family: var(--fuente-cuerpo);
+      color: var(--texto-medio);
+    }
+
+    /* Fondo: degradado suave con círculos bokeh, igual que el hero del sitio */
+    body {
+      background: radial-gradient(ellipse at center, #fde8e8 0%, #fdf0f0 50%, #faf4f0 100%);
+    }
+    body::before {
+      content: "";
+      position: fixed; z-index: 0; pointer-events: none;
+      width: 600px; height: 600px; top: -200px; right: -200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 175, 90, .16) 0%, transparent 70%);
+    }
+    body::after {
+      content: "";
+      position: fixed; z-index: 0; pointer-events: none;
+      width: 500px; height: 500px; bottom: -150px; left: -150px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 122, 122, .16) 0%, transparent 70%);
+    }
+
+    img { max-width: 100%; display: block; }
+
+    .rec-dot {
+      width: .55rem; height: .55rem; border-radius: 50%;
+      background: var(--rosa-oscuro); box-shadow: 0 0 12px rgba(201,122,122,.6);
+      animation: parpadeo 1.6s ease-in-out infinite; flex-shrink: 0;
+    }
+    @keyframes parpadeo { 50% { opacity: .25; } }
+
+    /* ═══ Deck ═══ */
+    .deck { position: relative; width: 100vw; height: 100svh; height: 100vh; overflow: hidden; z-index: 1; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; align-items: stretch; justify-content: center;
+      padding: clamp(3.6rem, 9vh, 5.2rem) clamp(1.2rem, 4vw, 4rem) clamp(4.2rem, 10vh, 5.6rem);
+      opacity: 0; transform: translateX(60px) scale(0.97);
+      pointer-events: none;
+      transition: transform 0.7s cubic-bezier(0.34, 1.1, 0.64, 1), opacity 0.5s ease;
+      z-index: 1; overflow: hidden;
+    }
+    .slide.activa { opacity: 1; transform: translateX(0) scale(1); pointer-events: auto; z-index: 2; }
+    .slide.saliendo-izq { transform: translateX(-70px) scale(0.97); opacity: 0; }
+    .slide.saliendo-der { transform: translateX(70px) scale(0.97); opacity: 0; }
+
+    .slide-inner {
+      position: relative; z-index: 1; width: 100%; max-width: 1800px; max-height: 100%;
+      overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; gap: clamp(.65rem, 2vh, 1.4rem);
+    }
+
+    .deco-icon {
+      position: absolute; opacity: .22; pointer-events: none; z-index: 0;
+      font-size: clamp(1.8rem, 4.4vh, 3.2rem); animation: flotar 7s ease-in-out infinite;
+    }
+
+    .slide-inner > * {
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.34, 1.3, 0.64, 1);
+    }
+    .slide.activa .slide-inner > *  { opacity: 1; transform: translateY(0); }
+    .slide.activa .slide-inner > *:nth-child(1) { transition-delay: 0.05s; }
+    .slide.activa .slide-inner > *:nth-child(2) { transition-delay: 0.13s; }
+    .slide.activa .slide-inner > *:nth-child(3) { transition-delay: 0.21s; }
+    .slide.activa .slide-inner > *:nth-child(4) { transition-delay: 0.29s; }
+    .slide.activa .slide-inner > *:nth-child(5) { transition-delay: 0.37s; }
+
+    /* ═══ Tipografía ═══ */
+    .eyebrow {
+      font-size: clamp(1rem, 2.3vh, 1.3rem); font-weight: 500; letter-spacing: .2em;
+      color: var(--rosa-oscuro); text-transform: uppercase;
+      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    }
+    .slide h2 {
+      font-family: var(--fuente-display); font-weight: 700;
+      font-size: clamp(2.3rem, 7.6vh, 4.4rem); line-height: 1.05; color: var(--dorado);
+    }
+    .slide h2 em { font-style: italic; font-weight: 400; color: var(--rosa-oscuro); }
+
+    .lead {
+      font-size: clamp(1.25rem, 3vh, 1.75rem); color: var(--texto-medio);
+      line-height: 1.5; max-width: 960px; margin: 0 auto; font-weight: 300;
+    }
+
+    /* Ficha blanca con franja dorada arriba */
+    .tarjeta {
+      position: relative; background: var(--blanco); border: 1px solid var(--dorado-suave);
+      border-radius: var(--radio); padding: clamp(1rem, 2.6vh, 1.8rem) clamp(1.2rem, 2.6vw, 2rem);
+      box-shadow: var(--sombra); overflow: hidden; text-align: left;
+    }
+    .tarjeta::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--dorado), var(--dorado-claro));
+    }
+    .tarjeta p { font-size: clamp(1.12rem, 2.6vh, 1.5rem); color: var(--texto-medio); line-height: 1.55; font-weight: 300; }
+    .tarjeta h3 {
+      font-family: var(--fuente-display); color: var(--dorado); font-weight: 700;
+      font-size: clamp(1.3rem, 3.2vh, 1.75rem); margin-bottom: clamp(.3rem, 1vh, .6rem);
+      display: flex; align-items: center; gap: .5rem;
+    }
+
+    /* ═══ Slide 1: portada ═══ */
+    .portada { text-align: center; align-items: center; }
+    .portada-logo {
+      width: clamp(120px, 20vh, 190px); height: clamp(120px, 20vh, 190px); border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--dorado-claro);
+      box-shadow: 0 0 0 8px rgba(212,175,90,.15), 0 0 0 16px rgba(212,175,90,.08), var(--sombra);
+      animation: flotar 6s ease-in-out infinite;
+    }
+    @keyframes flotar { 50% { transform: translateY(-10px); } }
+    .portada h1 {
+      font-family: var(--fuente-display); font-weight: 700;
+      font-size: clamp(3rem, 10vh, 5.6rem); line-height: .95; color: var(--dorado); letter-spacing: -.01em;
+    }
+    .portada h1 em { font-style: italic; font-weight: 400; color: var(--rosa-oscuro); }
+    .portada .subt { font-family: var(--fuente-display); font-style: italic; font-size: clamp(1.15rem, 2.6vh, 1.5rem); color: var(--texto-medio); letter-spacing: .04em; }
+    .portada-footer { font-size: clamp(.82rem, 1.8vh, 1rem); color: var(--texto-suave); letter-spacing: .02em; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .chips span {
+      background: var(--blanco); border: 1px solid var(--dorado-suave); color: var(--texto-medio);
+      padding: clamp(.4rem, 1.1vh, .6rem) clamp(.8rem, 1.7vw, 1.1rem); border-radius: 100px;
+      font-size: clamp(.92rem, 2vh, 1.12rem); font-weight: 500; box-shadow: var(--sombra);
+    }
+
+    /* ═══ Equipo: foto grande de cada integrante junto a su ficha ═══ */
+    .integrantes-grid-2 {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1rem, 2.4vw, 1.8rem);
+      width: 100%; flex: 1 1 0; min-height: 0; max-width: 1100px;
+    }
+    .miembro-card-v {
+      display: flex; flex-direction: column; background: var(--blanco); border: 1px solid var(--dorado-suave);
+      border-radius: var(--radio); overflow: hidden; box-shadow: var(--sombra); min-height: 0;
+    }
+    .miembro-card-v img {
+      width: 100%; height: clamp(160px, 36vh, 380px); flex: 0 0 auto;
+      object-fit: cover; object-position: 50% 20%; border-bottom: 4px solid var(--dorado-claro);
+    }
+    .miembro-card-v .info { padding: clamp(.9rem, 2vh, 1.4rem) clamp(.9rem, 1.8vw, 1.3rem); text-align: center; flex: 1 1 auto; min-height: 0; overflow: hidden; }
+    .miembro-card-v .nombre { font-family: var(--fuente-display); font-weight: 700; color: var(--texto-oscuro); font-size: clamp(1.1rem, 2.5vh, 1.45rem); line-height: 1.2; }
+    .miembro-card-v .rol { color: var(--dorado); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; font-size: clamp(.72rem, 1.55vh, .88rem); margin: 4px 0 8px; }
+    .miembro-card-v .desc { color: var(--texto-medio); font-size: clamp(.85rem, 1.8vh, 1.05rem); line-height: 1.42; font-weight: 300; }
+
+    /* Dos columnas texto + imagen */
+    .dos-col {
+      display: grid; grid-template-columns: 1fr .95fr; grid-template-rows: minmax(0, 1fr);
+      gap: clamp(1.2rem, 3.2vw, 2.6rem); align-items: stretch; width: 100%; flex: 1 1 0; min-height: 0;
+    }
+    .dos-col.invertido { grid-template-columns: .95fr 1fr; }
+    .dos-col img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radio); box-shadow: var(--sombra); border: 4px solid var(--dorado-claro); }
+    .dos-col .col-texto { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: clamp(.4rem, 1.2vh, .8rem); min-height: 0; }
+    .dos-col > .lead { display: flex; flex-direction: column; justify-content: center; min-height: 0; }
+    .logo-corporativo { width: auto; height: clamp(200px, 44vh, 420px); aspect-ratio: 1/1; flex: 0 0 auto; }
+
+    .dos-tarjetas { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(.8rem, 2vw, 1.4rem); }
+
+    .lista-check { list-style: none; display: grid; gap: clamp(.35rem, 1vh, .6rem); text-align: left; }
+    .lista-check li {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: var(--blanco); border: 1px solid var(--dorado-suave); border-radius: 14px;
+      padding: clamp(.55rem, 1.5vh, .9rem) clamp(.9rem, 1.8vw, 1.2rem);
+      font-size: clamp(1.05rem, 2.4vh, 1.38rem); color: var(--texto-medio); text-align: left; font-weight: 300;
+    }
+    .lista-check li::before {
+      content: '✦'; flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--dorado), var(--dorado-claro)); color: var(--blanco);
+      font-size: .72rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-top: 1px;
+    }
+
+    .objetivo-general {
+      background: linear-gradient(135deg, rgba(184,150,46,.14), rgba(201,122,122,.12));
+      border: 1px solid var(--dorado-suave); border-radius: var(--radio);
+      padding: clamp(.9rem, 2.3vh, 1.5rem) clamp(1.2rem, 2.6vw, 1.8rem);
+      font-size: clamp(1.15rem, 2.7vh, 1.55rem); color: var(--texto-oscuro); line-height: 1.48;
+    }
+    .objetivo-general .etiqueta {
+      display: block; font-size: clamp(.85rem, 1.8vh, 1rem); letter-spacing: .12em; text-transform: uppercase;
+      font-weight: 700; color: var(--dorado); margin-bottom: 5px;
+    }
+
+    .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(.8rem, 2vw, 1.4rem); }
+    .mv-card {
+      position: relative; background: var(--blanco); border: 1px solid var(--dorado-suave); border-radius: var(--radio);
+      padding: clamp(1rem, 2.5vh, 1.7rem); overflow: hidden; text-align: left;
+    }
+    .mv-card::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; background: linear-gradient(90deg, var(--dorado), var(--dorado-claro)); }
+    .mv-card .mv-icon { font-size: clamp(1.8rem, 3.8vh, 2.4rem); margin-bottom: clamp(.3rem, .8vh, .5rem); display: block; }
+    .mv-card h3 { font-family: var(--fuente-display); font-weight: 700; color: var(--dorado); font-size: clamp(1.3rem, 3vh, 1.65rem); margin-bottom: clamp(.35rem, 1vh, .65rem); }
+    .mv-card p { font-size: clamp(1.02rem, 2.3vh, 1.25rem); color: var(--texto-medio); line-height: 1.5; font-weight: 300; }
+
+    .recursos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(.45rem, 1.2vh, .8rem); }
+    .recursos-grid .servicio-bloque { padding: clamp(.5rem, 1.3vh, .85rem) clamp(.75rem, 1.6vw, 1.05rem); gap: 3px; }
+    .recursos-grid .servicio-bloque .icono { width: clamp(32px, 5.2vh, 42px); height: clamp(32px, 5.2vh, 42px); font-size: clamp(1.02rem, 2.1vh, 1.3rem); margin-bottom: 0; }
+    .recursos-grid .servicio-bloque h3 { font-size: clamp(.98rem, 2.1vh, 1.22rem); margin-bottom: 0; }
+    .recursos-grid .servicio-bloque p { font-size: clamp(.78rem, 1.6vh, .92rem); line-height: 1.28; }
+
+    .servicio-bloque {
+      background: var(--blanco); border: 1px solid var(--dorado-suave); border-radius: var(--radio);
+      padding: clamp(.8rem, 2vh, 1.4rem) clamp(.9rem, 2vw, 1.3rem);
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 7px;
+      box-shadow: var(--sombra);
+    }
+    .servicio-bloque .icono {
+      font-size: clamp(1.5rem, 3.1vh, 2rem); flex-shrink: 0;
+      width: clamp(46px, 7.8vh, 60px); height: clamp(46px, 7.8vh, 60px);
+      background: linear-gradient(135deg, rgba(184,150,46,.18), rgba(201,122,122,.16));
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    }
+    .servicio-bloque h3 { font-family: var(--fuente-display); font-weight: 700; font-size: clamp(1.15rem, 2.6vh, 1.45rem); color: var(--dorado); margin-bottom: 3px; }
+    .servicio-bloque p { font-size: clamp(.95rem, 2.1vh, 1.18rem); color: var(--texto-medio); line-height: 1.38; font-weight: 300; }
+
+    /* Equipo técnico disponible (fotos reales) */
+    .equipo-tecnico-titulo { font-size: clamp(.85rem, 1.8vh, 1rem); letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--rosa-oscuro); text-align: center; }
+    .equipo-tecnico-grid { display: flex; flex-direction: row; justify-content: center; align-items: flex-start; gap: clamp(1rem, 2.6vw, 2rem); width: 100%; }
+    .equipo-tecnico-card { display: flex; flex-direction: column; align-items: center; gap: .5rem; }
+    .equipo-tecnico-card img {
+      width: clamp(72px, 13vh, 135px); height: clamp(96px, 17.5vh, 180px);
+      object-fit: contain; background: var(--blanco); border: 1px solid var(--dorado-suave); border-radius: 14px;
+      box-shadow: var(--sombra);
+    }
+    .equipo-tecnico-card span { font-size: clamp(.76rem, 1.55vh, .92rem); color: var(--texto-medio); text-align: center; font-weight: 600; max-width: 9.5rem; line-height: 1.25; }
+
+    .segmento-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(.9rem, 2.2vw, 1.6rem); }
+    .segmento-card {
+      position: relative; background: var(--blanco); border: 1px solid var(--dorado-suave); border-radius: var(--radio);
+      padding: clamp(1.1rem, 2.8vh, 1.9rem); text-align: left; overflow: hidden;
+    }
+    .segmento-card::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; background: linear-gradient(90deg, var(--dorado), var(--dorado-claro)); }
+    .segmento-card .icono { font-size: clamp(1.8rem, 3.6vh, 2.3rem); margin-bottom: clamp(.3rem, .8vh, .5rem); display: block; }
+    .segmento-card h3 { font-family: var(--fuente-display); font-weight: 700; font-size: clamp(1.3rem, 2.9vh, 1.6rem); color: var(--dorado); margin-bottom: clamp(.3rem, .8vh, .5rem); }
+    .segmento-card p { font-size: clamp(1.02rem, 2.3vh, 1.28rem); color: var(--texto-medio); line-height: 1.48; font-weight: 300; }
+
+    /* Panel de QR — grande, para escanear en vivo */
+    .qr-panel { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: clamp(1rem, 3vw, 2.2rem); width: 100%; flex: 1 1 0; min-height: 0; }
+    .qr-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(.6rem, 1.6vh, 1rem); height: 100%; }
+    .qr-card img { width: auto; height: clamp(210px, 44vh, 420px); max-width: 92%; border-radius: 1rem; box-shadow: var(--sombra); border: 1px solid var(--dorado-suave); }
+    .qr-card span { font-weight: 600; font-size: clamp(1rem, 2.3vh, 1.35rem); line-height: 1.32; color: var(--texto-oscuro); text-align: center; max-width: 19rem; }
+
+    /* Paleta de colores */
+    .paleta-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(.5rem, 1.4vw, .9rem); }
+    .paleta-chip { border-radius: var(--radio); overflow: hidden; border: 1px solid var(--dorado-suave); box-shadow: var(--sombra); display: flex; flex-direction: column; }
+    .paleta-chip .swatch { height: clamp(84px, 16vh, 140px); }
+    .paleta-chip .info { background: var(--blanco); padding: clamp(.5rem, 1.2vh, .8rem) clamp(.4rem, 1vw, .6rem); text-align: center; }
+    .paleta-chip .nombre { font-family: var(--fuente-display); font-weight: 700; font-size: clamp(.95rem, 2vh, 1.15rem); color: var(--texto-oscuro); }
+    .paleta-chip .hex { font-size: clamp(.76rem, 1.55vh, .92rem); color: var(--texto-suave); font-family: monospace; margin-top: 3px; }
+    .fuentes-row { display: flex; gap: clamp(.8rem, 2vw, 1.5rem); justify-content: center; flex-wrap: wrap; }
+    .fuente-card { background: var(--blanco); border: 1px solid var(--dorado-suave); border-radius: var(--radio); padding: clamp(.65rem, 1.8vh, 1.1rem) clamp(1.05rem, 2.4vw, 1.7rem); text-align: center; box-shadow: var(--sombra); }
+    .fuente-card .muestra { font-size: clamp(1.5rem, 3.6vh, 2.3rem); margin-bottom: 3px; }
+    .fuente-card .muestra.display { font-family: var(--fuente-display); font-weight: 700; color: var(--dorado); }
+    .fuente-card .muestra.cuerpo { font-family: var(--fuente-cuerpo); color: var(--texto-oscuro); font-weight: 300; }
+    .fuente-card .etiqueta-fuente { font-size: clamp(.82rem, 1.75vh, .98rem); color: var(--texto-suave); letter-spacing: .05em; text-transform: uppercase; }
+
+    /* Informe de costos y gastos */
+    .costos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(1.2rem, 2.6vw, 2.2rem); width: 100%; }
+    .costo-item { display: flex; justify-content: space-between; align-items: baseline; gap: .6rem; border-bottom: 1px solid var(--dorado-suave); padding: clamp(.28rem, .75vh, .5rem) 0; }
+    .costo-item .desc { font-size: clamp(.72rem, 1.5vh, .92rem); color: var(--texto-medio); line-height: 1.25; text-align: left; }
+    .costo-item .valor { font-size: clamp(.76rem, 1.55vh, .95rem); color: var(--texto-oscuro); font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+    .costos-total {
+      display: flex; justify-content: space-between; align-items: center; width: 100%;
+      background: linear-gradient(135deg, rgba(184,150,46,.16), rgba(201,122,122,.14));
+      border: 1px solid var(--dorado-suave); border-radius: var(--radio);
+      padding: clamp(.55rem, 1.5vh, .95rem) clamp(1rem, 2vw, 1.6rem); margin-top: clamp(.3rem, .9vh, .6rem);
+    }
+    .costos-total .etiqueta { font-size: clamp(.85rem, 1.8vh, 1.1rem); letter-spacing: .08em; text-transform: uppercase; font-weight: 700; color: var(--dorado); }
+    .costos-total .monto { font-family: var(--fuente-display); font-size: clamp(1.25rem, 2.9vh, 1.8rem); font-weight: 700; color: var(--texto-oscuro); }
+
+    /* Ganancias: nota "por confirmar" */
+    .nota-pendiente {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--dorado-suave); color: var(--texto-oscuro);
+      font-size: clamp(.8rem, 1.7vh, .95rem); font-weight: 600;
+      padding: .4rem 1rem; border-radius: 999px; margin-top: .4rem;
+    }
+
+    /* Final / gracias */
+    .final { text-align: center; align-items: center; }
+    .final .logo-final {
+      width: clamp(84px, 15vh, 130px); height: clamp(84px, 15vh, 130px); border-radius: 50%; object-fit: cover;
+      border: 4px solid var(--dorado-claro); margin: 0 auto clamp(.4rem, 1vh, .8rem);
+      box-shadow: 0 0 40px rgba(212,175,90,.4);
+    }
+    .final h2 { color: var(--dorado); }
+    .btn-final {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--dorado), var(--dorado-claro)); color: var(--blanco);
+      padding: clamp(.9rem, 2.3vh, 1.3rem) clamp(1.7rem, 3.4vw, 2.5rem);
+      border-radius: 999px; text-decoration: none; font-family: var(--fuente-display); font-weight: 700;
+      font-size: clamp(1.1rem, 2.4vh, 1.35rem);
+      box-shadow: var(--sombra); margin: 0 auto;
+    }
+
+    /* ═══ Controles de navegación ═══ */
+    .nav-controles {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+      padding: clamp(.6rem, 1.6vh, 1rem) 1rem calc(clamp(.6rem, 1.6vh, 1rem) + env(safe-area-inset-bottom, 0px));
+      background: linear-gradient(to top, rgba(253,240,240,.9), transparent);
+    }
+    .nav-btn {
+      width: clamp(32px, 6vh, 40px); height: clamp(32px, 6vh, 40px); border-radius: 50%; border: none;
+      background: linear-gradient(135deg, var(--dorado), var(--dorado-claro)); color: var(--blanco);
+      font-size: clamp(.9rem, 2vh, 1.1rem); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(184,150,46,.35);
+      transition: transform 0.25s cubic-bezier(0.34,1.5,0.64,1); flex-shrink: 0;
+    }
+    .nav-btn:hover { transform: scale(1.1); }
+    .nav-btn:active { transform: scale(0.92); }
+    .nav-btn.deshabilitado { opacity: 0.3; pointer-events: none; }
+
+    .nav-puntos { display: flex; gap: 5px; flex-wrap: wrap; max-width: 44vw; justify-content: center; }
+    .nav-punto { width: 7px; height: 7px; border-radius: 50%; background: rgba(201,122,122,.3); border: none; cursor: pointer; padding: 0; transition: transform 0.25s, background 0.25s; flex-shrink: 0; }
+    .nav-punto.activo { background: var(--dorado); transform: scale(1.5); }
+    .nav-contador { font-size: clamp(.6rem, 1.3vh, .72rem); color: var(--texto-suave); font-weight: 700; letter-spacing: .05em; min-width: 40px; text-align: center; }
+
+    @media (max-width: 680px) {
+      .integrantes-grid-2, .dos-tarjetas, .mv-grid, .segmento-grid, .recursos-grid { grid-template-columns: 1fr; }
+      .dos-col, .dos-col.invertido { display: flex; flex-direction: column; justify-content: center; gap: .8rem; }
+      .dos-col img { width: 100%; height: auto; flex: 1 1 auto; min-height: 130px; }
+      .dos-col .col-texto, .dos-col > .lead { flex: 0 0 auto; }
+      .dos-col img.logo-corporativo { width: auto; height: clamp(150px, 34vh, 420px); aspect-ratio: 1/1; flex: 0 0 auto; }
+      .paleta-grid { grid-template-columns: repeat(3, 1fr); }
+      .nav-puntos { max-width: 38vw; }
+      .slide { padding: clamp(3.4rem, 8vh, 4.6rem) 1rem clamp(4.4rem, 11vh, 5.6rem); }
+      .slide h2 { font-size: clamp(1.55rem, 5.6vh, 2.5rem); }
+      .slide-inner { gap: clamp(.5rem, 1.5vh, 1rem); }
+      .portada h1 { font-size: clamp(2.3rem, 13vw, 4.2rem); }
+      .portada .subt { font-size: clamp(1rem, 4.4vw, 1.3rem); }
+      .lead { font-size: clamp(.9rem, 2.3vh, 1.15rem); line-height: 1.4; }
+      .tarjeta p { font-size: clamp(1rem, 2.5vh, 1.28rem); }
+
+      .integrantes-grid-2 { gap: .6rem; max-width: 100%; }
+      .miembro-card-v img { height: clamp(120px, 26vh, 220px); }
+      .miembro-card-v .info { padding: .6rem .6rem; }
+      .miembro-card-v .nombre { font-size: clamp(.9rem, 2.1vh, 1.1rem); }
+      .miembro-card-v .desc { font-size: clamp(.72rem, 1.6vh, .85rem); }
+      .deco-icon { display: none; }
+    }
+
+    @media (max-width: 680px) {
+      .slide { padding: clamp(2.8rem, 7vh, 3.8rem) 1.1rem clamp(3.8rem, 9.5vh, 4.8rem); }
+      .slide-inner { gap: clamp(.4rem, 1.2vh, .7rem); }
+      .slide h2 { font-size: clamp(1.3rem, 5.2vh, 2rem); line-height: 1.08; }
+      .eyebrow { font-size: clamp(.68rem, 1.9vh, .82rem); }
+      .lead { font-size: clamp(.8rem, 2.2vh, .98rem); line-height: 1.42; }
+      .tarjeta { padding: .65rem .9rem; }
+      .tarjeta p { font-size: clamp(.8rem, 2vh, .96rem); line-height: 1.4; }
+      .tarjeta h3 { font-size: clamp(.92rem, 2.4vh, 1.08rem); margin-bottom: .3rem; }
+      .dos-tarjetas { gap: .55rem; }
+      .dos-col img { min-height: 90px; }
+      .chips span { font-size: clamp(.7rem, 1.9vh, .85rem); padding: .3rem .6rem; }
+      .objetivo-general { padding: .55rem .85rem; font-size: clamp(.85rem, 2vh, 1rem); }
+      .objetivo-general .etiqueta { font-size: .68rem; }
+      .lista-check { gap: .3rem; }
+      .lista-check li { padding: .4rem .7rem; font-size: clamp(.78rem, 1.9vh, .92rem); gap: 8px; }
+      .mv-card, .segmento-card { padding: .6rem .8rem; }
+      .mv-card .mv-icon, .segmento-card .icono { font-size: clamp(1.2rem, 2.8vh, 1.55rem); margin-bottom: .25rem; }
+      .mv-card h3, .segmento-card h3 { font-size: clamp(1rem, 2.4vh, 1.2rem); margin-bottom: .25rem; }
+      .mv-card p, .segmento-card p { font-size: clamp(.76rem, 1.9vh, .9rem); line-height: 1.35; }
+      .servicio-bloque { padding: .35rem .55rem; gap: 2px; }
+      .servicio-bloque .icono { width: clamp(26px, 4.6vh, 34px); height: clamp(26px, 4.6vh, 34px); font-size: clamp(.92rem, 2vh, 1.1rem); margin-bottom: 0; }
+      .servicio-bloque h3 { font-size: clamp(.84rem, 2vh, .98rem); margin-bottom: 0; }
+      .servicio-bloque p { font-size: clamp(.68rem, 1.6vh, .78rem); line-height: 1.24; }
+      .recursos-grid { grid-template-columns: 1fr 1fr; gap: .32rem; }
+      .recursos-grid .servicio-bloque { padding: .28rem .38rem; gap: 2px; }
+      .recursos-grid .servicio-bloque .icono { width: 22px; height: 22px; font-size: .78rem; }
+      .recursos-grid .servicio-bloque h3 { font-size: .76rem; }
+      .recursos-grid .servicio-bloque p { font-size: .64rem; line-height: 1.18; }
+      .equipo-tecnico-titulo { font-size: .68rem; }
+      .equipo-tecnico-grid { gap: .45rem; }
+      .equipo-tecnico-card img { width: clamp(54px, 15vw, 90px); height: clamp(72px, 20vw, 120px); }
+      .equipo-tecnico-card span { font-size: .62rem; max-width: 5.6rem; line-height: 1.15; }
+      .costos-grid { gap: 0 .7rem; }
+      .costo-item { padding: .18rem 0; gap: .3rem; }
+      .costo-item .desc { font-size: .62rem; line-height: 1.15; }
+      .costo-item .valor { font-size: .64rem; }
+      .costos-total { padding: .4rem .7rem; }
+      .costos-total .etiqueta { font-size: .66rem; }
+      .costos-total .monto { font-size: 1.02rem; }
+      .qr-panel { flex-wrap: nowrap; gap: .5rem; }
+      .qr-card img { height: clamp(160px, 46vw, 260px); }
+      .qr-card span { font-size: .8rem; max-width: 12rem; }
+      .paleta-grid { gap: .4rem; }
+      .paleta-chip .swatch { height: 44px; }
+      .paleta-chip .info { padding: .3rem .3rem; }
+      .paleta-chip .nombre { font-size: .76rem; }
+      .paleta-chip .hex { font-size: .64rem; margin-top: 1px; }
+      .fuentes-row { gap: .5rem; }
+      .fuente-card { padding: .45rem .8rem; }
+      .fuente-card .muestra { font-size: 1.15rem; margin-bottom: 1px; }
+      .fuente-card .etiqueta-fuente { font-size: .66rem; }
+      .deco-icon { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="deck" id="deck">
+
+    <!-- ═══ 1. PORTADA ═══ -->
+    <section class="slide" data-bg="1">
+      <div class="slide-inner portada">
+        <img class="portada-logo" src="../img/logo.png" alt="Logo Postres Glam" />
+        <p class="eyebrow"><span class="rec-dot"></span> Sustentación de proyecto · SENA / IEDP</p>
+        <h1>Postres<br><em>Glam</em></h1>
+        <p class="subt">✨ Brilla en cada bocado ✨</p>
+        <p class="portada-footer">Instructora Andrea Alvarado · Docente Técnico Víctor Manuel Escobar Amado<br>Emprendimiento estudiantil · Institución Educativa La Divina Pastora · Cúcuta</p>
+      </div>
+    </section>
+
+    <!-- ═══ 2. INTEGRANTES ═══ -->
+    <section class="slide" data-bg="2">
+      <div class="slide-inner">
+        <p class="eyebrow">01 — El equipo</p>
+        <h2>Integrantes</h2>
+        <div class="integrantes-grid-2">
+          <div class="miembro-card-v">
+            <img src="../equipo/vale.jpeg" alt="Valeria Mantilla" />
+            <div class="info">
+              <div class="nombre">Valeria Mantilla</div>
+              <div class="rol">Repostera principal</div>
+              <p class="desc">Encargada de la elaboración y presentación de los postres. Le apasiona experimentar con nuevos sabores.</p>
+            </div>
+          </div>
+          <div class="miembro-card-v">
+            <img src="../equipo/dane.jpeg" alt="Daneysi Quintero" />
+            <div class="info">
+              <div class="nombre">Daneysi Quintero</div>
+              <div class="rol">Marketing y redes</div>
+              <p class="desc">Responsable de la imagen de marca, las redes sociales y la estrategia de ventas del emprendimiento.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 3. NECESIDAD E IDEA ═══ -->
+    <section class="slide" data-bg="3">
+      <div class="slide-inner">
+        <p class="eyebrow">02 — El punto de partida</p>
+        <h2>Descripción de la <em>necesidad e idea</em></h2>
+        <div class="dos-tarjetas">
+          <div class="tarjeta">
+            <h3>🔍 La necesidad</h3>
+            <p>En muchas comunidades se consumen postres industrializados con conservantes y aditivos, lo que ha bajado el valor de los productos caseros. Hay poca oferta de emprendimientos locales con postres artesanales frescos y de buena calidad.</p>
+          </div>
+          <div class="tarjeta">
+            <h3>💡 La idea</h3>
+            <p>Un emprendimiento de postres lácteos artesanales que promueve el consumo de productos tradicionales, deliciosos y accesibles, dado a conocer con marketing digital: fotos y videos en redes, promociones, combos y una identidad de marca propia.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 4. IDEA DE SOLUCIÓN INNOVADORA ═══ -->
+    <section class="slide" data-bg="4">
+      <div class="slide-inner">
+        <p class="eyebrow">03 — Nuestra propuesta</p>
+        <h2>Idea de solución <em>innovadora</em></h2>
+        <div class="dos-col">
+          <div class="col-texto">
+            <p class="lead">Combinamos recetas tradicionales de postres lácteos con presentación y comercialización modernas: contenido digital que muestra el proceso de elaboración, la variedad de postres y las opciones de pedido.</p>
+            <p class="lead">Usamos WhatsApp, Instagram y Facebook para recibir pedidos, interactuar con los clientes y difundir los productos, construyendo no solo ventas, sino una marca cercana que genera confianza.</p>
+          </div>
+          <img src="img/postre-maracuya.jpg" alt="Postre de maracuyá Postres Glam en su empaque con etiqueta" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 5. OBJETIVOS ═══ -->
+    <section class="slide" data-bg="5">
+      <span class="deco-icon" aria-hidden="true" style="top:10%; left:6%; animation-delay:.2s;">🍮</span>
+      <span class="deco-icon" aria-hidden="true" style="bottom:14%; right:7%; animation-delay:1.4s;">✨</span>
+      <span class="deco-icon" aria-hidden="true" style="top:14%; right:9%; font-size:clamp(1.3rem,3vh,2rem); animation-delay:2.4s;">🧁</span>
+      <div class="slide-inner">
+        <p class="eyebrow">04 — Hacia dónde vamos</p>
+        <h2>Objetivos</h2>
+        <div class="objetivo-general">
+          <span class="etiqueta">🎯 Objetivo general</span>
+          Promover el emprendimiento mediante la creación y comercialización de postres lácteos artesanales, ofreciendo productos de calidad con presentaciones atractivas y estrategias de promoción digital.
+        </div>
+        <p style="font-family:var(--fuente-display); font-weight:700; font-size:clamp(.9rem,1.9vh,1.05rem); letter-spacing:.12em; text-transform:uppercase; color:var(--rosa-oscuro);">Objetivos específicos</p>
+        <ul class="lista-check">
+          <li>Elaborar diferentes tipos de postres lácteos utilizando ingredientes frescos y de buena calidad</li>
+          <li>Diseñar presentaciones llamativas para mejorar la imagen y la comercialización de los productos</li>
+          <li>Utilizar redes sociales y herramientas digitales para promocionar y vender los postres</li>
+          <li>Ofrecer productos personalizados para diferentes eventos y celebraciones</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══ 6. JUSTIFICACIÓN ═══ -->
+    <section class="slide" data-bg="6">
+      <span class="deco-icon" aria-hidden="true" style="top:12%; right:6%; animation-delay:.6s;">💛</span>
+      <span class="deco-icon" aria-hidden="true" style="bottom:16%; left:7%; animation-delay:1.8s;">🍮</span>
+      <span class="deco-icon" aria-hidden="true" style="bottom:12%; right:11%; font-size:clamp(1.3rem,3vh,2rem); animation-delay:3s;">💛</span>
+      <div class="slide-inner">
+        <p class="eyebrow">05 — Por qué vale la pena</p>
+        <h2>Justificación</h2>
+        <div class="tarjeta">
+          <p>Este proyecto promueve el consumo de productos artesanales, rescata recetas tradicionales y genera oportunidades económicas. El uso de redes sociales amplía el alcance del negocio, buscando no solo generar ingresos sino ofrecer una opción deliciosa, accesible y artesanal para cada ocasión.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 7. MISIÓN Y VISIÓN ═══ -->
+    <section class="slide" data-bg="7">
+      <div class="slide-inner">
+        <p class="eyebrow">06 — Nuestra identidad</p>
+        <h2>Misión &amp; Visión</h2>
+        <div class="mv-grid">
+          <div class="mv-card">
+            <span class="mv-icon">🎯</span>
+            <h3>Nuestra Misión</h3>
+            <p>Somos un emprendimiento dedicado a la elaboración y venta de postres lácteos artesanales, preparados con ingredientes frescos y de buena calidad, que rescatan el sabor de los postres caseros tradicionales y buscan una experiencia dulce y agradable para cada cliente.</p>
+          </div>
+          <div class="mv-card">
+            <span class="mv-icon">🌟</span>
+            <h3>Nuestra Visión</h3>
+            <p>Para septiembre de 2026, estar posicionadas como una propuesta reconocida por la calidad, el sabor y la presentación de nuestros postres dentro de la comunidad, creciendo en variedad de productos y en nuestras estrategias de producción y venta.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 8. TECNOLOGÍAS ═══ -->
+    <section class="slide" data-bg="8">
+      <div class="slide-inner">
+        <p class="eyebrow">07 — Cómo lo hacemos</p>
+        <h2>Tecnologías a <em>emplear</em></h2>
+        <div class="dos-col invertido">
+          <img src="img/postre-oreo.jpg" alt="Postre de Oreo Postres Glam" />
+          <div class="col-texto">
+            <p class="lead">Herramientas que facilitan la promoción y comercialización de los postres, y la gestión de pedidos y contenido:</p>
+            <div class="chips">
+              <span>🎨 Canva</span>
+              <span>📷 Instagram</span>
+              <span>📘 Facebook</span>
+              <span>💬 WhatsApp</span>
+              <span>📱 Dispositivos móviles</span>
+              <span>💻 Computadores</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 9. RECURSOS ═══ -->
+    <section class="slide" data-bg="9">
+      <div class="slide-inner">
+        <p class="eyebrow">08 — Lo que necesitamos</p>
+        <h2>Recursos</h2>
+        <div class="recursos-grid">
+          <div class="servicio-bloque"><span class="icono">🥛</span><div><h3>Ingredientes</h3><p>Insumos frescos y de buena calidad para la elaboración de los postres.</p></div></div>
+          <div class="servicio-bloque"><span class="icono">📦</span><div><h3>Envases y empaque</h3><p>Materiales para la presentación y exhibición de los productos.</p></div></div>
+          <div class="servicio-bloque"><span class="icono">📱</span><div><h3>Dispositivos</h3><p>Móviles o computadores para la promoción y gestión de ventas.</p></div></div>
+          <div class="servicio-bloque"><span class="icono">🌐</span><div><h3>Internet</h3><p>Conexión estable para el manejo de las redes sociales.</p></div></div>
+          <div class="servicio-bloque"><span class="icono">⏳</span><div><h3>Tiempo y dedicación</h3><p>Para la elaboración y comercialización constante de los postres.</p></div></div>
+        </div>
+        <p class="equipo-tecnico-titulo">🎛️ Equipo técnico disponible</p>
+        <div class="equipo-tecnico-grid">
+          <div class="equipo-tecnico-card">
+            <img src="img/equipo-camara.jpg" alt="Cámara Sony con lente, baterías, cargador y correa" />
+            <span>Cámara Sony + accesorios</span>
+          </div>
+          <div class="equipo-tecnico-card">
+            <img src="img/equipo-microfono.jpg" alt="Micrófono lavalier inalámbrico" />
+            <span>Micrófono inalámbrico</span>
+          </div>
+          <div class="equipo-tecnico-card">
+            <img src="img/equipo-audifonos.jpg" alt="Audífonos de monitoreo" />
+            <span>Audífonos de monitoreo</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 10. PRODUCTOS Y SERVICIOS ═══ -->
+    <section class="slide" data-bg="10">
+      <div class="slide-inner">
+        <p class="eyebrow">09 — Lo que vamos a construir</p>
+        <h2>Descripción de <em>productos y servicios</em></h2>
+        <div class="dos-col">
+          <div class="col-texto" style="align-items: stretch;">
+            <div class="servicio-bloque">
+              <span class="icono">💻</span>
+              <div><h3>Sitio web e-commerce</h3><p>Plataforma en HTML5/CSS3/JS con carrito de compras, menú por categorías y botón directo a WhatsApp.</p></div>
+            </div>
+            <div class="servicio-bloque">
+              <span class="icono">🎬</span>
+              <div><h3>Contenido multimedia</h3><p>Galería fotográfica, banner promocional y video de marca. Envíos en la zona y sus alrededores.</p></div>
+            </div>
+          </div>
+          <img src="img/postre-milo.jpg" alt="Postre Milo Postres Glam" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 11. IMAGEN CORPORATIVA ═══ -->
+    <section class="slide" data-bg="11">
+      <div class="slide-inner">
+        <p class="eyebrow">10 — Nuestra marca</p>
+        <h2>Imagen <em>Corporativa</em></h2>
+        <div class="dos-col">
+          <p class="lead">
+            Logo con tipografía estilizada y elegante, en una paleta de tonos rosa y pastel asociados a la dulzura y la repostería artesanal, con un eslogan enfocado en distinción y sabor: <em style="font-style:italic; color:var(--rosa-oscuro);">"Brilla en cada bocado"</em>
+          </p>
+          <img class="logo-corporativo" src="../img/logo.png" alt="Logo de Postres Glam" style="background:var(--blanco); padding:1.2rem; border-radius:50%; object-fit:contain; margin:0 auto; align-self:center; justify-self:center;" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 12. ETIQUETA Y EMPAQUE ═══ -->
+    <section class="slide" data-bg="12">
+      <div class="slide-inner">
+        <p class="eyebrow">11 — Piezas de comunicación</p>
+        <h2>Etiqueta y <em>Empaque</em></h2>
+        <div class="dos-col invertido">
+          <img src="img/etiqueta-poster.jpg" alt="Etiqueta circular de Postres Glam" />
+          <div class="col-texto">
+            <p class="lead"><b style="color:var(--dorado);">Etiqueta:</b> stickers adhesivos circulares en vinilo impermeable con el logo y las redes sociales.</p>
+            <p class="lead"><b style="color:var(--dorado);">Empaque:</b> cajas de plástico transparente que exhiben el producto.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 13. SEGMENTO OBJETIVO ═══ -->
+    <section class="slide" data-bg="13">
+      <div class="slide-inner">
+        <p class="eyebrow">12 — A quién llegamos</p>
+        <h2>Segmento <em>Objetivo</em></h2>
+        <div class="dos-col">
+          <div class="col-texto" style="align-items: stretch; gap: clamp(.8rem, 2vh, 1.4rem);">
+            <div class="segmento-card">
+              <span class="icono">📍</span>
+              <h3>Ubicación</h3>
+              <p>Cúcuta, La Pastora.</p>
+            </div>
+            <div class="segmento-card">
+              <span class="icono">👥</span>
+              <h3>Perfil</h3>
+              <p>Hombres y mujeres entre 8 y 55 años que buscan postres artesanales de excelente calidad, elaborados con ingredientes frescos, para una experiencia dulce en cualquier momento.</p>
+            </div>
+          </div>
+          <img src="img/segmento-poster.jpg" alt="Familia disfrutando postres Postres Glam" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 14. VENTAJAS COMPETITIVAS ═══ -->
+    <section class="slide" data-bg="14">
+      <div class="slide-inner">
+        <p class="eyebrow">13 — Lo que nos distingue</p>
+        <h2>Ventajas <em>Competitivas</em></h2>
+        <div class="tarjeta">
+          <p>Pedidos personalizados directos por WhatsApp, catálogo web dinámico con cálculo automático del carrito de compras, y productos artesanales sin conservantes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 15. PUBLICIDAD ═══ -->
+    <section class="slide" data-bg="15">
+      <div class="slide-inner">
+        <p class="eyebrow">14 — Cómo lo damos a conocer</p>
+        <h2>Publicidad</h2>
+        <div class="tarjeta">
+          <p>Anuncios a través de Instagram, el canal de WhatsApp y el sitio web, para dar a conocer el nombre del emprendimiento y sus productos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 16. PALETA DE COLORES Y ESTILO ═══ -->
+    <section class="slide" data-bg="16">
+      <div class="slide-inner">
+        <p class="eyebrow">15 — Nuestra identidad visual</p>
+        <h2>Paleta de <em>colores y estilo</em></h2>
+        <p class="lead" style="max-width:56rem;">Tonos rosa pastel y dorado sobre fondos claros: la elegancia de la repostería artesanal, con tipografía serif itálica para los acentos.</p>
+        <div class="paleta-grid">
+          <div class="paleta-chip"><div class="swatch" style="background:#fdf0f0;"></div><div class="info"><div class="nombre">Rosa fondo</div><div class="hex">#FDF0F0</div></div></div>
+          <div class="paleta-chip"><div class="swatch" style="background:#c97a7a;"></div><div class="info"><div class="nombre">Rosa oscuro</div><div class="hex">#C97A7A</div></div></div>
+          <div class="paleta-chip"><div class="swatch" style="background:#b8962e;"></div><div class="info"><div class="nombre">Dorado</div><div class="hex">#B8962E</div></div></div>
+          <div class="paleta-chip"><div class="swatch" style="background:#d4af5a;"></div><div class="info"><div class="nombre">Dorado claro</div><div class="hex">#D4AF5A</div></div></div>
+          <div class="paleta-chip"><div class="swatch" style="background:#faf6ee;"></div><div class="info"><div class="nombre">Crema</div><div class="hex">#FAF6EE</div></div></div>
+          <div class="paleta-chip"><div class="swatch" style="background:#3d2b1f;"></div><div class="info"><div class="nombre">Texto oscuro</div><div class="hex">#3D2B1F</div></div></div>
+        </div>
+        <div class="fuentes-row">
+          <div class="fuente-card"><div class="muestra display">Cormorant Garamond</div><div class="etiqueta-fuente">Tipografía de títulos</div></div>
+          <div class="fuente-card"><div class="muestra cuerpo">Jost</div><div class="etiqueta-fuente">Tipografía de texto</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 17. INFORME DE COSTOS Y GASTOS ═══ -->
+    <section class="slide" data-bg="17">
+      <div class="slide-inner">
+        <p class="eyebrow">16 — Presupuesto del proyecto</p>
+        <h2>Informe de <em>costos y gastos</em></h2>
+        <div class="costos-grid">
+          <div class="costo-item"><span class="desc">Cámara Sony ZV-E10</span><span class="valor">$3.375.962</span></div>
+          <div class="costo-item"><span class="desc">Tarjeta SD ADATA 128GB (x2)</span><span class="valor">$211.098</span></div>
+          <div class="costo-item"><span class="desc">Trípode con cabezal fluido</span><span class="valor">$1.277.837</span></div>
+          <div class="costo-item"><span class="desc">Batería recargable de la cámara</span><span class="valor">$365.811</span></div>
+          <div class="costo-item"><span class="desc">Cargador de batería para cámara</span><span class="valor">$472.469</span></div>
+          <div class="costo-item"><span class="desc">Grabadora Tascam DR-05XP</span><span class="valor">$1.072.498</span></div>
+          <div class="costo-item"><span class="desc">Memoria para grabadora de audio</span><span class="valor">$76.923</span></div>
+          <div class="costo-item"><span class="desc">Micrófonos de solapa inalámbricos</span><span class="valor">$1.430.473</span></div>
+          <div class="costo-item"><span class="desc">Audífonos Behringer BH470</span><span class="valor">$327.012</span></div>
+          <div class="costo-item"><span class="desc">Cargador de pilas</span><span class="valor">$69.606</span></div>
+          <div class="costo-item"><span class="desc">Set de pilas recargables AA/AAA</span><span class="valor">$152.541</span></div>
+          <div class="costo-item"><span class="desc">Micrófono Boom</span><span class="valor">$1.296.443</span></div>
+          <div class="costo-item"><span class="desc">Portátil HP + licencia</span><span class="valor">$2.615.330</span></div>
+          <div class="costo-item"><span class="desc">Disco duro externo 2TB</span><span class="valor">$393.852</span></div>
+        </div>
+        <div class="costos-total">
+          <span class="etiqueta">Total invertido</span>
+          <span class="monto">$13.137.855</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 18. INFORME DE GANANCIAS ═══ -->
+    <section class="slide" data-bg="18">
+      <div class="slide-inner">
+        <p class="eyebrow">17 — Balance del emprendimiento</p>
+        <h2>Informe de <em>ganancias</em></h2>
+        <div class="dos-tarjetas">
+          <div class="tarjeta">
+            <h3>💰 Ganancias por venta de postres</h3>
+            <p>Estamos calculando el margen entre el costo de ingredientes y empaque, y el precio de venta de cada postre.</p>
+            <span class="nota-pendiente">📋 Cifras por confirmar</span>
+          </div>
+          <div class="tarjeta">
+            <h3>🌱 Valor del emprendimiento</h3>
+            <p>Más allá de las cifras, este proyecto enseña a emprender: calcular costos, fijar precios justos y sostener un negocio real dentro de la comunidad educativa.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 19. REDES SOCIALES ═══ -->
+    <section class="slide" data-bg="19">
+      <div class="slide-inner">
+        <p class="eyebrow">18 — Síguenos</p>
+        <h2>Redes <em>Sociales</em></h2>
+        <div class="qr-panel">
+          <div class="qr-card">
+            <img src="img/qr-instagram.jpg" alt="Código QR al Instagram @postresglam_" />
+            <span>📷 Escanea y síguenos en Instagram</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 20. CIERRE ═══ -->
+    <section class="slide" data-bg="20">
+      <div class="slide-inner final">
+        <img class="logo-final" src="../img/logo.png" alt="Postres Glam" />
+        <p class="eyebrow"><span class="rec-dot"></span> GRACIAS POR SU ATENCIÓN</p>
+        <h2>¡Gracias!</h2>
+        <p class="subt">✨ Postres Glam · Brilla en cada bocado ✨</p>
+        <p class="portada-footer">Emprendimiento estudiantil · Técnica en Integración de Contenidos Digitales · IEDP La Divina Pastora</p>
+        <a class="btn-final" href="https://www.instagram.com/postresglam_" target="_blank" rel="noopener noreferrer">📷 @postresglam_</a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ═══ Controles de navegación ═══ -->
+  <div class="nav-controles">
+    <button class="nav-btn" id="btnPrev" aria-label="Diapositiva anterior">‹</button>
+    <div class="nav-puntos" id="navPuntos"></div>
+    <button class="nav-btn" id="btnNext" aria-label="Siguiente diapositiva">›</button>
+    <span class="nav-contador" id="navContador">1 / 20</span>
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const total = slides.length;
+    let actual = 0;
+
+    const puntosWrap = document.getElementById('navPuntos');
+    slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-punto' + (i === 0 ? ' activo' : '');
+      btn.setAttribute('aria-label', `Ir a la diapositiva ${i + 1}`);
+      btn.addEventListener('click', () => irA(i));
+      puntosWrap.appendChild(btn);
+    });
+    const puntos = Array.from(document.querySelectorAll('.nav-punto'));
+
+    function actualizarUI() {
+      puntos.forEach((p, i) => p.classList.toggle('activo', i === actual));
+      document.getElementById('navContador').textContent = `${actual + 1} / ${total}`;
+      document.getElementById('btnPrev').classList.toggle('deshabilitado', actual === 0);
+      document.getElementById('btnNext').classList.toggle('deshabilitado', actual === total - 1);
+    }
+
+    function irA(indice) {
+      indice = Math.max(0, Math.min(total - 1, indice));
+      if (indice === actual) return;
+      const direccion = indice > actual ? 1 : -1;
+
+      slides.forEach((s, i) => {
+        s.classList.remove('activa', 'saliendo-izq', 'saliendo-der');
+        if (i === actual) {
+          s.classList.add(direccion > 0 ? 'saliendo-izq' : 'saliendo-der');
+        }
+      });
+
+      actual = indice;
+      slides[actual].classList.add('activa');
+      actualizarUI();
+    }
+
+    slides[0].classList.add('activa');
+    actualizarUI();
+
+    document.getElementById('btnPrev').addEventListener('click', () => irA(actual - 1));
+    document.getElementById('btnNext').addEventListener('click', () => irA(actual + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') irA(actual + 1);
+      if (e.key === 'ArrowLeft') irA(actual - 1);
+    });
+
+    /* Navegación táctil (swipe horizontal) */
+    let touchStartX = 0, touchStartY = 0;
+    const deck = document.getElementById('deck');
+
+    deck.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    deck.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) {
+        if (dx < 0) irA(actual + 1); else irA(actual - 1);
+      }
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
