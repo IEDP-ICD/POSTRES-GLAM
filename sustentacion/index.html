@@ -115,18 +115,18 @@
 
     /* ═══ Tipografía ═══ */
     .eyebrow {
-      font-size: clamp(1rem, 2.3vh, 1.3rem); font-weight: 500; letter-spacing: .2em;
+      font-size: clamp(1.05rem, 2.5vh, 1.4rem); font-weight: 500; letter-spacing: .2em;
       color: var(--rosa-oscuro); text-transform: uppercase;
       display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
     }
     .slide h2 {
       font-family: var(--fuente-display); font-weight: 700;
-      font-size: clamp(2.3rem, 7.6vh, 4.4rem); line-height: 1.05; color: var(--dorado);
+      font-size: clamp(2.5rem, 9vh, 5.2rem); line-height: 1.05; color: var(--dorado);
     }
     .slide h2 em { font-style: italic; font-weight: 400; color: var(--rosa-oscuro); }
 
     .lead {
-      font-size: clamp(1.25rem, 3vh, 1.75rem); color: var(--texto-medio);
+      font-size: clamp(1.35rem, 3.4vh, 1.95rem); color: var(--texto-medio);
       line-height: 1.5; max-width: 960px; margin: 0 auto; font-weight: 300;
     }
 
@@ -140,10 +140,10 @@
       content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
       background: linear-gradient(90deg, var(--dorado), var(--dorado-claro));
     }
-    .tarjeta p { font-size: clamp(1.12rem, 2.6vh, 1.5rem); color: var(--texto-medio); line-height: 1.55; font-weight: 300; }
+    .tarjeta p { font-size: clamp(1.25rem, 2.9vh, 1.65rem); color: var(--texto-medio); line-height: 1.55; font-weight: 300; }
     .tarjeta h3 {
       font-family: var(--fuente-display); color: var(--dorado); font-weight: 700;
-      font-size: clamp(1.3rem, 3.2vh, 1.75rem); margin-bottom: clamp(.3rem, 1vh, .6rem);
+      font-size: clamp(1.5rem, 3.8vh, 2.1rem); margin-bottom: clamp(.3rem, 1vh, .6rem);
       display: flex; align-items: center; gap: .5rem;
     }
 
@@ -159,17 +159,17 @@
     @keyframes flotar { 50% { transform: translateY(-10px); } }
     .portada h1 {
       font-family: var(--fuente-display); font-weight: 700;
-      font-size: clamp(3rem, 10vh, 5.6rem); line-height: .95; color: var(--dorado); letter-spacing: -.01em;
+      font-size: clamp(3.4rem, 11vh, 6.6rem); line-height: .95; color: var(--dorado); letter-spacing: -.01em;
     }
     .portada h1 em { font-style: italic; font-weight: 400; color: var(--rosa-oscuro); }
-    .portada .subt { font-family: var(--fuente-display); font-style: italic; font-size: clamp(1.15rem, 2.6vh, 1.5rem); color: var(--texto-medio); letter-spacing: .04em; }
-    .portada-footer { font-size: clamp(.82rem, 1.8vh, 1rem); color: var(--texto-suave); letter-spacing: .02em; }
+    .portada .subt { font-family: var(--fuente-display); font-style: italic; font-size: clamp(1.4rem, 3.2vh, 1.9rem); color: var(--texto-medio); letter-spacing: .04em; }
+    .portada-footer { font-size: clamp(.95rem, 2.1vh, 1.15rem); color: var(--texto-suave); letter-spacing: .02em; }
 
     .chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
     .chips span {
       background: var(--blanco); border: 1px solid var(--dorado-suave); color: var(--texto-medio);
-      padding: clamp(.4rem, 1.1vh, .6rem) clamp(.8rem, 1.7vw, 1.1rem); border-radius: 100px;
-      font-size: clamp(.92rem, 2vh, 1.12rem); font-weight: 500; box-shadow: var(--sombra);
+      padding: clamp(.45rem, 1.2vh, .7rem) clamp(.85rem, 1.8vw, 1.2rem); border-radius: 100px;
+      font-size: clamp(1.05rem, 2.3vh, 1.3rem); font-weight: 500; box-shadow: var(--sombra);
     }
 
     /* ═══ Equipo: foto grande de cada integrante junto a su ficha ═══ */
@@ -186,9 +186,9 @@
       object-fit: cover; object-position: 50% 20%; border-bottom: 4px solid var(--dorado-claro);
     }
     .miembro-card-v .info { padding: clamp(.9rem, 2vh, 1.4rem) clamp(.9rem, 1.8vw, 1.3rem); text-align: center; flex: 1 1 auto; min-height: 0; overflow: hidden; }
-    .miembro-card-v .nombre { font-family: var(--fuente-display); font-weight: 700; color: var(--texto-oscuro); font-size: clamp(1.1rem, 2.5vh, 1.45rem); line-height: 1.2; }
-    .miembro-card-v .rol { color: var(--dorado); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; font-size: clamp(.72rem, 1.55vh, .88rem); margin: 4px 0 8px; }
-    .miembro-card-v .desc { color: var(--texto-medio); font-size: clamp(.85rem, 1.8vh, 1.05rem); line-height: 1.42; font-weight: 300; }
+    .miembro-card-v .nombre { font-family: var(--fuente-display); font-weight: 700; color: var(--texto-oscuro); font-size: clamp(1.4rem, 3.3vh, 1.9rem); line-height: 1.2; }
+    .miembro-card-v .rol { color: var(--dorado); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; font-size: clamp(.92rem, 2vh, 1.15rem); margin: 4px 0 8px; }
+    .miembro-card-v .desc { color: var(--texto-medio); font-size: clamp(1.05rem, 2.3vh, 1.3rem); line-height: 1.42; font-weight: 300; }
 
     /* Dos columnas texto + imagen */
     .dos-col {
@@ -208,7 +208,7 @@
       display: flex; align-items: flex-start; gap: 12px;
       background: var(--blanco); border: 1px solid var(--dorado-suave); border-radius: 14px;
       padding: clamp(.55rem, 1.5vh, .9rem) clamp(.9rem, 1.8vw, 1.2rem);
-      font-size: clamp(1.05rem, 2.4vh, 1.38rem); color: var(--texto-medio); text-align: left; font-weight: 300;
+      font-size: clamp(1.1rem, 2.5vh, 1.45rem); color: var(--texto-medio); text-align: left; font-weight: 300;
     }
     .lista-check li::before {
       content: '✦'; flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
@@ -220,10 +220,10 @@
       background: linear-gradient(135deg, rgba(184,150,46,.14), rgba(201,122,122,.12));
       border: 1px solid var(--dorado-suave); border-radius: var(--radio);
       padding: clamp(.9rem, 2.3vh, 1.5rem) clamp(1.2rem, 2.6vw, 1.8rem);
-      font-size: clamp(1.15rem, 2.7vh, 1.55rem); color: var(--texto-oscuro); line-height: 1.48;
+      font-size: clamp(1.2rem, 2.8vh, 1.6rem); color: var(--texto-oscuro); line-height: 1.48;
     }
     .objetivo-general .etiqueta {
-      display: block; font-size: clamp(.85rem, 1.8vh, 1rem); letter-spacing: .12em; text-transform: uppercase;
+      display: block; font-size: clamp(.9rem, 1.9vh, 1.05rem); letter-spacing: .12em; text-transform: uppercase;
       font-weight: 700; color: var(--dorado); margin-bottom: 5px;
     }
 
@@ -233,9 +233,9 @@
       padding: clamp(1rem, 2.5vh, 1.7rem); overflow: hidden; text-align: left;
     }
     .mv-card::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; background: linear-gradient(90deg, var(--dorado), var(--dorado-claro)); }
-    .mv-card .mv-icon { font-size: clamp(1.8rem, 3.8vh, 2.4rem); margin-bottom: clamp(.3rem, .8vh, .5rem); display: block; }
-    .mv-card h3 { font-family: var(--fuente-display); font-weight: 700; color: var(--dorado); font-size: clamp(1.3rem, 3vh, 1.65rem); margin-bottom: clamp(.35rem, 1vh, .65rem); }
-    .mv-card p { font-size: clamp(1.02rem, 2.3vh, 1.25rem); color: var(--texto-medio); line-height: 1.5; font-weight: 300; }
+    .mv-card .mv-icon { font-size: clamp(1.9rem, 4.2vh, 2.7rem); margin-bottom: clamp(.3rem, .8vh, .5rem); display: block; }
+    .mv-card h3 { font-family: var(--fuente-display); font-weight: 700; color: var(--dorado); font-size: clamp(1.5rem, 3.4vh, 1.95rem); margin-bottom: clamp(.35rem, 1vh, .65rem); }
+    .mv-card p { font-size: clamp(1.1rem, 2.5vh, 1.35rem); color: var(--texto-medio); line-height: 1.5; font-weight: 300; }
 
     .recursos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(.45rem, 1.2vh, .8rem); }
     .recursos-grid .servicio-bloque { padding: clamp(.5rem, 1.3vh, .85rem) clamp(.75rem, 1.6vw, 1.05rem); gap: 3px; }
@@ -255,8 +255,8 @@
       background: linear-gradient(135deg, rgba(184,150,46,.18), rgba(201,122,122,.16));
       border-radius: 50%; display: flex; align-items: center; justify-content: center;
     }
-    .servicio-bloque h3 { font-family: var(--fuente-display); font-weight: 700; font-size: clamp(1.15rem, 2.6vh, 1.45rem); color: var(--dorado); margin-bottom: 3px; }
-    .servicio-bloque p { font-size: clamp(.95rem, 2.1vh, 1.18rem); color: var(--texto-medio); line-height: 1.38; font-weight: 300; }
+    .servicio-bloque h3 { font-family: var(--fuente-display); font-weight: 700; font-size: clamp(1.3rem, 2.9vh, 1.65rem); color: var(--dorado); margin-bottom: 3px; }
+    .servicio-bloque p { font-size: clamp(1.05rem, 2.3vh, 1.3rem); color: var(--texto-medio); line-height: 1.38; font-weight: 300; }
 
     /* Equipo técnico disponible (fotos reales) */
     .equipo-tecnico-titulo { font-size: clamp(.85rem, 1.8vh, 1rem); letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--rosa-oscuro); text-align: center; }
@@ -276,28 +276,28 @@
     }
     .segmento-card::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; background: linear-gradient(90deg, var(--dorado), var(--dorado-claro)); }
     .segmento-card .icono { font-size: clamp(1.8rem, 3.6vh, 2.3rem); margin-bottom: clamp(.3rem, .8vh, .5rem); display: block; }
-    .segmento-card h3 { font-family: var(--fuente-display); font-weight: 700; font-size: clamp(1.3rem, 2.9vh, 1.6rem); color: var(--dorado); margin-bottom: clamp(.3rem, .8vh, .5rem); }
-    .segmento-card p { font-size: clamp(1.02rem, 2.3vh, 1.28rem); color: var(--texto-medio); line-height: 1.48; font-weight: 300; }
+    .segmento-card h3 { font-family: var(--fuente-display); font-weight: 700; font-size: clamp(1.4rem, 3vh, 1.75rem); color: var(--dorado); margin-bottom: clamp(.3rem, .8vh, .5rem); }
+    .segmento-card p { font-size: clamp(1.1rem, 2.5vh, 1.4rem); color: var(--texto-medio); line-height: 1.48; font-weight: 300; }
 
     /* Panel de QR — grande, para escanear en vivo */
     .qr-panel { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: clamp(1rem, 3vw, 2.2rem); width: 100%; flex: 1 1 0; min-height: 0; }
     .qr-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(.6rem, 1.6vh, 1rem); height: 100%; }
-    .qr-card img { width: auto; height: clamp(210px, 44vh, 420px); max-width: 92%; border-radius: 1rem; box-shadow: var(--sombra); border: 1px solid var(--dorado-suave); }
-    .qr-card span { font-weight: 600; font-size: clamp(1rem, 2.3vh, 1.35rem); line-height: 1.32; color: var(--texto-oscuro); text-align: center; max-width: 19rem; }
+    .qr-card img { width: auto; height: clamp(190px, 38vh, 360px); max-width: 92%; border-radius: 1rem; box-shadow: var(--sombra); border: 1px solid var(--dorado-suave); }
+    .qr-card span { font-weight: 600; font-size: clamp(1.1rem, 2.5vh, 1.5rem); line-height: 1.32; color: var(--texto-oscuro); text-align: center; max-width: 19rem; }
 
     /* Paleta de colores */
     .paleta-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(.5rem, 1.4vw, .9rem); }
     .paleta-chip { border-radius: var(--radio); overflow: hidden; border: 1px solid var(--dorado-suave); box-shadow: var(--sombra); display: flex; flex-direction: column; }
     .paleta-chip .swatch { height: clamp(84px, 16vh, 140px); }
     .paleta-chip .info { background: var(--blanco); padding: clamp(.5rem, 1.2vh, .8rem) clamp(.4rem, 1vw, .6rem); text-align: center; }
-    .paleta-chip .nombre { font-family: var(--fuente-display); font-weight: 700; font-size: clamp(.95rem, 2vh, 1.15rem); color: var(--texto-oscuro); }
-    .paleta-chip .hex { font-size: clamp(.76rem, 1.55vh, .92rem); color: var(--texto-suave); font-family: monospace; margin-top: 3px; }
+    .paleta-chip .nombre { font-family: var(--fuente-display); font-weight: 700; font-size: clamp(1.05rem, 2.2vh, 1.3rem); color: var(--texto-oscuro); }
+    .paleta-chip .hex { font-size: clamp(.85rem, 1.7vh, 1rem); color: var(--texto-suave); font-family: monospace; margin-top: 3px; }
     .fuentes-row { display: flex; gap: clamp(.8rem, 2vw, 1.5rem); justify-content: center; flex-wrap: wrap; }
-    .fuente-card { background: var(--blanco); border: 1px solid var(--dorado-suave); border-radius: var(--radio); padding: clamp(.65rem, 1.8vh, 1.1rem) clamp(1.05rem, 2.4vw, 1.7rem); text-align: center; box-shadow: var(--sombra); }
-    .fuente-card .muestra { font-size: clamp(1.5rem, 3.6vh, 2.3rem); margin-bottom: 3px; }
+    .fuente-card { background: var(--blanco); border: 1px solid var(--dorado-suave); border-radius: var(--radio); padding: clamp(.7rem, 1.9vh, 1.2rem) clamp(1.1rem, 2.6vw, 1.8rem); text-align: center; box-shadow: var(--sombra); }
+    .fuente-card .muestra { font-size: clamp(1.7rem, 4vh, 2.6rem); margin-bottom: 3px; }
     .fuente-card .muestra.display { font-family: var(--fuente-display); font-weight: 700; color: var(--dorado); }
     .fuente-card .muestra.cuerpo { font-family: var(--fuente-cuerpo); color: var(--texto-oscuro); font-weight: 300; }
-    .fuente-card .etiqueta-fuente { font-size: clamp(.82rem, 1.75vh, .98rem); color: var(--texto-suave); letter-spacing: .05em; text-transform: uppercase; }
+    .fuente-card .etiqueta-fuente { font-size: clamp(.9rem, 1.9vh, 1.08rem); color: var(--texto-suave); letter-spacing: .05em; text-transform: uppercase; }
 
     /* Informe de costos y gastos */
     .costos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(1.2rem, 2.6vw, 2.2rem); width: 100%; }
@@ -426,9 +426,10 @@
       .costos-total { padding: .4rem .7rem; }
       .costos-total .etiqueta { font-size: .66rem; }
       .costos-total .monto { font-size: 1.02rem; }
-      .qr-panel { flex-wrap: nowrap; gap: .5rem; }
-      .qr-card img { height: clamp(160px, 46vw, 260px); }
-      .qr-card span { font-size: .8rem; max-width: 12rem; }
+      .qr-panel { flex-wrap: nowrap; gap: .45rem; }
+      .qr-card { gap: .35rem; }
+      .qr-card img { height: clamp(90px, 32vw, 175px); }
+      .qr-card span { font-size: .68rem; line-height: 1.2; max-width: 6.5rem; }
       .paleta-grid { gap: .4rem; }
       .paleta-chip .swatch { height: 44px; }
       .paleta-chip .info { padding: .3rem .3rem; }
@@ -489,15 +490,18 @@
       <div class="slide-inner">
         <p class="eyebrow">02 — El punto de partida</p>
         <h2>Descripción de la <em>necesidad e idea</em></h2>
-        <div class="dos-tarjetas">
-          <div class="tarjeta">
-            <h3>🔍 La necesidad</h3>
-            <p>En muchas comunidades se consumen postres industrializados con conservantes y aditivos, lo que ha bajado el valor de los productos caseros. Hay poca oferta de emprendimientos locales con postres artesanales frescos y de buena calidad.</p>
+        <div class="dos-col">
+          <div class="col-texto" style="align-items: stretch; gap: clamp(.8rem, 2vh, 1.4rem);">
+            <div class="tarjeta">
+              <h3>🔍 La necesidad</h3>
+              <p>En muchas comunidades se consumen postres industrializados con conservantes y aditivos, lo que ha bajado el valor de los productos caseros. Hay poca oferta de emprendimientos locales con postres artesanales frescos y de buena calidad.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>💡 La idea</h3>
+              <p>Un emprendimiento de postres lácteos artesanales que promueve el consumo de productos tradicionales, deliciosos y accesibles, dado a conocer con marketing digital: fotos y videos en redes, promociones, combos y una identidad de marca propia.</p>
+            </div>
           </div>
-          <div class="tarjeta">
-            <h3>💡 La idea</h3>
-            <p>Un emprendimiento de postres lácteos artesanales que promueve el consumo de productos tradicionales, deliciosos y accesibles, dado a conocer con marketing digital: fotos y videos en redes, promociones, combos y una identidad de marca propia.</p>
-          </div>
+          <img src="img/postre-arequipe-real.jpg" alt="Postre de arequipe Postres Glam recién preparado" />
         </div>
       </div>
     </section>
@@ -519,36 +523,39 @@
 
     <!-- ═══ 5. OBJETIVOS ═══ -->
     <section class="slide" data-bg="5">
-      <span class="deco-icon" aria-hidden="true" style="top:10%; left:6%; animation-delay:.2s;">🍮</span>
-      <span class="deco-icon" aria-hidden="true" style="bottom:14%; right:7%; animation-delay:1.4s;">✨</span>
-      <span class="deco-icon" aria-hidden="true" style="top:14%; right:9%; font-size:clamp(1.3rem,3vh,2rem); animation-delay:2.4s;">🧁</span>
       <div class="slide-inner">
         <p class="eyebrow">04 — Hacia dónde vamos</p>
         <h2>Objetivos</h2>
-        <div class="objetivo-general">
-          <span class="etiqueta">🎯 Objetivo general</span>
-          Promover el emprendimiento mediante la creación y comercialización de postres lácteos artesanales, ofreciendo productos de calidad con presentaciones atractivas y estrategias de promoción digital.
+        <div class="dos-col">
+          <div class="col-texto" style="align-items: stretch; gap: clamp(.5rem, 1.4vh, .9rem);">
+            <div class="objetivo-general">
+              <span class="etiqueta">🎯 Objetivo general</span>
+              Promover el emprendimiento mediante la creación y comercialización de postres lácteos artesanales, ofreciendo productos de calidad con presentaciones atractivas y estrategias de promoción digital.
+            </div>
+            <ul class="lista-check">
+              <li>Elaborar diferentes tipos de postres lácteos utilizando ingredientes frescos y de buena calidad</li>
+              <li>Diseñar presentaciones llamativas para mejorar la imagen y la comercialización de los productos</li>
+              <li>Utilizar redes sociales y herramientas digitales para promocionar y vender los postres</li>
+              <li>Ofrecer productos personalizados para diferentes eventos y celebraciones</li>
+            </ul>
+          </div>
+          <img src="img/poster-maracuya.jpg" alt="Poster promocional del postre de maracuyá" />
         </div>
-        <p style="font-family:var(--fuente-display); font-weight:700; font-size:clamp(.9rem,1.9vh,1.05rem); letter-spacing:.12em; text-transform:uppercase; color:var(--rosa-oscuro);">Objetivos específicos</p>
-        <ul class="lista-check">
-          <li>Elaborar diferentes tipos de postres lácteos utilizando ingredientes frescos y de buena calidad</li>
-          <li>Diseñar presentaciones llamativas para mejorar la imagen y la comercialización de los productos</li>
-          <li>Utilizar redes sociales y herramientas digitales para promocionar y vender los postres</li>
-          <li>Ofrecer productos personalizados para diferentes eventos y celebraciones</li>
-        </ul>
       </div>
     </section>
 
     <!-- ═══ 6. JUSTIFICACIÓN ═══ -->
     <section class="slide" data-bg="6">
-      <span class="deco-icon" aria-hidden="true" style="top:12%; right:6%; animation-delay:.6s;">💛</span>
-      <span class="deco-icon" aria-hidden="true" style="bottom:16%; left:7%; animation-delay:1.8s;">🍮</span>
-      <span class="deco-icon" aria-hidden="true" style="bottom:12%; right:11%; font-size:clamp(1.3rem,3vh,2rem); animation-delay:3s;">💛</span>
       <div class="slide-inner">
         <p class="eyebrow">05 — Por qué vale la pena</p>
         <h2>Justificación</h2>
-        <div class="tarjeta">
-          <p>Este proyecto promueve el consumo de productos artesanales, rescata recetas tradicionales y genera oportunidades económicas. El uso de redes sociales amplía el alcance del negocio, buscando no solo generar ingresos sino ofrecer una opción deliciosa, accesible y artesanal para cada ocasión.</p>
+        <div class="dos-col invertido">
+          <img src="img/poster-arequipe.jpg" alt="Poster promocional del postre de arequipe" />
+          <div class="col-texto">
+            <div class="tarjeta">
+              <p>Este proyecto promueve el consumo de productos artesanales, rescata recetas tradicionales y genera oportunidades económicas. El uso de redes sociales amplía el alcance del negocio, buscando no solo generar ingresos sino ofrecer una opción deliciosa, accesible y artesanal para cada ocasión.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -558,17 +565,20 @@
       <div class="slide-inner">
         <p class="eyebrow">06 — Nuestra identidad</p>
         <h2>Misión &amp; Visión</h2>
-        <div class="mv-grid">
-          <div class="mv-card">
-            <span class="mv-icon">🎯</span>
-            <h3>Nuestra Misión</h3>
-            <p>Somos un emprendimiento dedicado a la elaboración y venta de postres lácteos artesanales, preparados con ingredientes frescos y de buena calidad, que rescatan el sabor de los postres caseros tradicionales y buscan una experiencia dulce y agradable para cada cliente.</p>
+        <div class="dos-col">
+          <div class="col-texto" style="align-items: stretch; gap: clamp(.8rem, 2vh, 1.4rem);">
+            <div class="mv-card">
+              <span class="mv-icon">🎯</span>
+              <h3>Nuestra Misión</h3>
+              <p>Somos un emprendimiento dedicado a la elaboración y venta de postres lácteos artesanales, preparados con ingredientes frescos y de buena calidad, que rescatan el sabor de los postres caseros tradicionales.</p>
+            </div>
+            <div class="mv-card">
+              <span class="mv-icon">🌟</span>
+              <h3>Nuestra Visión</h3>
+              <p>Para septiembre de 2026, estar posicionadas como una propuesta reconocida por la calidad, el sabor y la presentación de nuestros postres dentro de la comunidad.</p>
+            </div>
           </div>
-          <div class="mv-card">
-            <span class="mv-icon">🌟</span>
-            <h3>Nuestra Visión</h3>
-            <p>Para septiembre de 2026, estar posicionadas como una propuesta reconocida por la calidad, el sabor y la presentación de nuestros postres dentro de la comunidad, creciendo en variedad de productos y en nuestras estrategias de producción y venta.</p>
-          </div>
+          <img src="img/detalle-crema.jpg" alt="Detalle de la crema artesanal de un postre Postres Glam" />
         </div>
       </div>
     </section>
@@ -703,8 +713,13 @@
       <div class="slide-inner">
         <p class="eyebrow">13 — Lo que nos distingue</p>
         <h2>Ventajas <em>Competitivas</em></h2>
-        <div class="tarjeta">
-          <p>Pedidos personalizados directos por WhatsApp, catálogo web dinámico con cálculo automático del carrito de compras, y productos artesanales sin conservantes.</p>
+        <div class="dos-col invertido">
+          <img src="img/poster-oreo.jpg" alt="Poster promocional del postre de Oreo, con precio y llamado a la acción" />
+          <div class="col-texto">
+            <div class="tarjeta">
+              <p>Pedidos personalizados directos por WhatsApp, catálogo web dinámico con cálculo automático del carrito de compras, y productos artesanales sin conservantes — como muestran nuestros propios posters promocionales.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -714,8 +729,13 @@
       <div class="slide-inner">
         <p class="eyebrow">14 — Cómo lo damos a conocer</p>
         <h2>Publicidad</h2>
-        <div class="tarjeta">
-          <p>Anuncios a través de Instagram, el canal de WhatsApp y el sitio web, para dar a conocer el nombre del emprendimiento y sus productos.</p>
+        <div class="dos-col">
+          <div class="col-texto">
+            <div class="tarjeta">
+              <p>Anuncios a través de Instagram, el canal de WhatsApp y el sitio web, para dar a conocer el nombre del emprendimiento y sus productos: posters como este circulan en nuestras redes para atraer nuevos clientes.</p>
+            </div>
+          </div>
+          <img src="img/poster-milo.jpg" alt="Poster promocional del postre Milo usado en redes sociales" />
         </div>
       </div>
     </section>
@@ -774,15 +794,18 @@
       <div class="slide-inner">
         <p class="eyebrow">17 — Balance del emprendimiento</p>
         <h2>Informe de <em>ganancias</em></h2>
-        <div class="dos-tarjetas">
-          <div class="tarjeta">
-            <h3>💰 Ganancias por venta de postres</h3>
-            <p>Estamos calculando el margen entre el costo de ingredientes y empaque, y el precio de venta de cada postre.</p>
-            <span class="nota-pendiente">📋 Cifras por confirmar</span>
-          </div>
-          <div class="tarjeta">
-            <h3>🌱 Valor del emprendimiento</h3>
-            <p>Más allá de las cifras, este proyecto enseña a emprender: calcular costos, fijar precios justos y sostener un negocio real dentro de la comunidad educativa.</p>
+        <div class="dos-col invertido">
+          <img src="img/detalle-oreo.jpg" alt="Detalle de la galleta Oreo crujiente de un postre Postres Glam" />
+          <div class="col-texto" style="align-items: stretch; gap: clamp(.8rem, 2vh, 1.4rem);">
+            <div class="tarjeta">
+              <h3>💰 Ganancias por venta</h3>
+              <p>Estamos calculando el margen entre el costo de ingredientes y empaque, y el precio de venta de cada postre.</p>
+              <span class="nota-pendiente">📋 Cifras por confirmar</span>
+            </div>
+            <div class="tarjeta">
+              <h3>🌱 Valor del emprendimiento</h3>
+              <p>Más allá de las cifras, este proyecto enseña a emprender: calcular costos, fijar precios justos y sostener un negocio real dentro de la comunidad educativa.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -791,12 +814,20 @@
     <!-- ═══ 19. REDES SOCIALES ═══ -->
     <section class="slide" data-bg="19">
       <div class="slide-inner">
-        <p class="eyebrow">18 — Síguenos</p>
+        <p class="eyebrow">18 — Síguenos y visítanos</p>
         <h2>Redes <em>Sociales</em></h2>
         <div class="qr-panel">
           <div class="qr-card">
             <img src="img/qr-instagram.jpg" alt="Código QR al Instagram @postresglam_" />
             <span>📷 Escanea y síguenos en Instagram</span>
+          </div>
+          <div class="qr-card">
+            <img src="img/qr-tiktok.jpg" alt="Código QR al TikTok de Postres Glam" />
+            <span>🎵 Escanea y síguenos en TikTok</span>
+          </div>
+          <div class="qr-card">
+            <img src="img/qr-sitio-web.jpg" alt="Código QR al sitio web de Postres Glam" />
+            <span>🌐 Escanea y visita nuestro sitio web</span>
           </div>
         </div>
       </div>
