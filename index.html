@@ -10,9 +10,8 @@
   ║  ├── index.html          ← este archivo                     ║
   ║  ├── img/                                                    ║
   ║  │   └── logo.png        ← el logo circular de Postres Glam ║
-  ║  ├── galeria/            ← fotos de productos (JPG/PNG)     ║
+  ║  ├── galeria/            ← catálogo: fotos y precios        ║
   ║  ├── recetas/            ← archivos .json con cada receta   ║
-  ║  ├── catalogo/           ← catalogo.json con los precios    ║
   ║  ├── equipo/             ← equipo.json con el equipo        ║
   ║  └── redes/              ← redes.json con las redes         ║
   ║                                                              ║
@@ -473,54 +472,6 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-       GALERÍA DE FOTOS
-       Lee imágenes de la carpeta /galeria/
-       ═══════════════════════════════════════════════════════════ */
-    #galeria-grid {
-      display: grid;
-      /* Columnas que se crean automáticamente según el espacio disponible */
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    /* Tarjeta de foto individual */
-    .foto-card {
-      border-radius: var(--radio-md);
-      overflow: hidden;
-      cursor: pointer;
-      box-shadow: var(--sombra-suave);
-      transition: transform 0.3s, box-shadow 0.3s;
-      background: var(--blanco);
-      border: 1px solid var(--rosa-medio);
-    }
-
-    /* Al pasar el cursor, la tarjeta se eleva */
-    .foto-card:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--sombra-fuerte);
-    }
-
-    /* Contenedor de la imagen con proporción fija */
-    .foto-thumb {
-      aspect-ratio: 1 / 1;   /* Cuadrado perfecto */
-      overflow: hidden;
-      background: var(--rosa-medio);
-    }
-
-    /* La imagen dentro de la tarjeta */
-    .foto-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;       /* Recorta para llenar el cuadrado */
-      transition: transform 0.4s;
-    }
-
-    /* Zoom suave al hacer hover */
-    .foto-card:hover .foto-thumb img {
-      transform: scale(1.08);
-    }
-
-    /* ═══════════════════════════════════════════════════════════
        POSTERS PROMOCIONALES
        Lee imágenes de la carpeta /posters/
        ═══════════════════════════════════════════════════════════ */
@@ -560,28 +511,6 @@
 
     .poster-card:hover .poster-thumb img {
       transform: scale(1.05);
-    }
-
-    /* Información debajo de la foto */
-    .foto-info {
-      padding: 14px 16px;
-    }
-
-    /* Nombre/título de la foto */
-    .foto-nombre {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--texto-oscuro);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    /* Descripción corta de la foto */
-    .foto-desc {
-      font-size: 0.78rem;
-      color: var(--texto-suave);
-      margin-top: 3px;
     }
 
     /* ═══════════════════════════════════════════════════════════
@@ -711,8 +640,8 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-       CATÁLOGO DE PRECIOS
-       Se alimenta del archivo /catalogo/catalogo.json
+       CATÁLOGO
+       Se alimenta del archivo /galeria/galeria.json
        ═══════════════════════════════════════════════════════════ */
     #catalogo-grid {
       display: grid;
@@ -767,15 +696,6 @@
       gap: 8px;
     }
 
-    /* Categoría del producto */
-    .producto-categoria {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--rosa-oscuro);
-      font-weight: 600;
-    }
-
     /* Nombre del producto */
     .producto-nombre {
       font-family: 'Cormorant Garamond', serif;
@@ -811,32 +731,23 @@
       color: var(--dorado);
     }
 
-    /* Etiqueta de disponibilidad */
-    .producto-badge {
-      background: var(--dorado-suave);
-      color: var(--dorado);
-      font-size: 0.72rem;
-      padding: 4px 12px;
-      border-radius: 100px;
+    /* Botón "Pide aquí" — abre WhatsApp con el pedido */
+    .btn-pedir {
+      display: inline-block;
+      background: var(--dorado);
+      color: var(--blanco);
+      font-size: 0.75rem;
       font-weight: 600;
-      letter-spacing: 0.05em;
-    }
-
-    /* Sabores disponibles */
-    .producto-sabores {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    /* Etiqueta de cada sabor */
-    .sabor-tag {
-      background: var(--rosa-medio);
-      color: var(--texto-medio);
-      font-size: 0.72rem;
-      padding: 3px 10px;
+      letter-spacing: 0.04em;
+      padding: 7px 16px;
       border-radius: 100px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-pedir:hover {
+      background: var(--dorado-claro);
+      transform: translateY(-1px);
     }
 
     /* ═══════════════════════════════════════════════════════════
@@ -1127,10 +1038,9 @@
 
     <!-- Links de navegación, cada uno lleva a una sección de la página -->
     <ul class="nav-links">
-      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#catalogo">Catálogo</a></li>
       <li><a href="#posters">Posters</a></li>
       <li><a href="#recetas">Recetas</a></li>
-      <li><a href="#catalogo">Catálogo</a></li>
       <li><a href="#nosotros">Nosotros</a></li>
       <li><a href="#redes">Redes</a></li>
     </ul>
@@ -1199,29 +1109,30 @@
 
 
   <!-- ═══════════════════════════════════════════════════════════
-       SECCIÓN: GALERÍA DE FOTOS
+       SECCIÓN: CATÁLOGO
        Se alimenta de: galeria/galeria.json
        Formato del archivo JSON:
        [
          {
            "nombre": "Postre de maracuyá",
            "descripcion": "Nuestro postre estrella",
+           "precio": "$6.500",
            "archivo": "postre-maracuya.jpg"
          },
          ...
        ]
        Las imágenes deben estar en la carpeta galeria/
        ═══════════════════════════════════════════════════════════ -->
-  <section class="seccion" id="galeria">
+  <section class="seccion" id="catalogo">
     <div class="contenedor">
       <div class="seccion-header">
         <p class="seccion-eyebrow">Nuestras creaciones</p>
-        <h2>Galería</h2>
-        <p>Cada postre es una obra de arte hecha con amor</p>
+        <h2>Catálogo</h2>
+        <p>Deliciosos postres a precios accesibles · Pide el tuyo hoy 🍮</p>
       </div>
 
-      <!-- El JS inserta las tarjetas de fotos aquí -->
-      <div id="galeria-grid">
+      <!-- El JS inserta las tarjetas del catálogo aquí -->
+      <div id="catalogo-grid">
         <!-- Skeletons de carga -->
         <div class="skeleton skeleton-card-alta"></div>
         <div class="skeleton skeleton-card-alta"></div>
@@ -1289,43 +1200,6 @@
       <!-- El JS inserta las recetas aquí -->
       <div id="recetas-grid">
         <!-- Skeletons de carga -->
-        <div class="skeleton skeleton-card-alta"></div>
-        <div class="skeleton skeleton-card-alta"></div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════════
-       SECCIÓN: CATÁLOGO DE PRECIOS
-       Se alimenta de: catalogo/catalogo.json
-       Formato del archivo JSON:
-       [
-         {
-           "nombre": "Postre de Maracuyá",
-           "categoria": "Postres fríos",
-           "descripcion": "Cremoso postre con topping de maracuyá natural",
-           "precio": "$7.000",
-           "sabores": ["Maracuyá", "Oreo", "Arequipe"],
-           "imagen": "postre-maracuya.jpg",
-           "disponible": true
-         },
-         ...
-       ]
-       Las imágenes de los productos deben estar en catalogo/
-       ═══════════════════════════════════════════════════════════ -->
-  <section class="seccion" id="catalogo">
-    <div class="contenedor">
-      <div class="seccion-header">
-        <p class="seccion-eyebrow">Nuestros precios</p>
-        <h2>Catálogo</h2>
-        <p>Deliciosos postres a precios accesibles · Pide el tuyo hoy 🍮</p>
-      </div>
-
-      <!-- El JS inserta las tarjetas de productos aquí -->
-      <div id="catalogo-grid">
-        <!-- Skeletons de carga -->
-        <div class="skeleton skeleton-card-alta"></div>
         <div class="skeleton skeleton-card-alta"></div>
         <div class="skeleton skeleton-card-alta"></div>
       </div>
@@ -1453,10 +1327,9 @@
       // Promise.allSettled espera a que todas terminen, incluso si alguna falla
       Promise.allSettled([
         cargarEquipoYMision(),  // Carga misión, visión y equipo del mismo JSON
-        cargarGaleria(),
+        cargarCatalogo(),
         cargarPosters(),
         cargarRecetas(),
-        cargarCatalogo(),
         cargarRedes()
       ]);
     });
@@ -1549,42 +1422,55 @@
 
     /*
     ══════════════════════════════════════════════════════════════
-    FUNCIÓN: cargarGaleria
-    Lee galeria/galeria.json y muestra las fotos
+    FUNCIÓN: cargarCatalogo
+    Lee galeria/galeria.json y muestra las tarjetas del catálogo,
+    cada una con su precio y un botón "Pide aquí" que abre WhatsApp
+    con un mensaje ya escrito con el nombre del postre.
     ══════════════════════════════════════════════════════════════
     */
-    async function cargarGaleria() {
-      const grid = document.getElementById('galeria-grid');
+    const WHATSAPP_PEDIDOS = '573008914788';
+
+    async function cargarCatalogo() {
+      const grid = document.getElementById('catalogo-grid');
       try {
         const resp = await fetch('galeria/galeria.json');
         if (!resp.ok) throw new Error('No se encontró galeria.json');
-        const fotos = await resp.json();
+        const postres = await resp.json();
 
-        if (!fotos || fotos.length === 0) {
-          grid.innerHTML = mensajeVacio('📷', 'Galería vacía', 'Agrega imágenes y actualiza galeria/galeria.json');
+        if (!postres || postres.length === 0) {
+          grid.innerHTML = mensajeVacio('🛍️', 'Catálogo vacío', 'Agrega postres y actualiza galeria/galeria.json');
           return;
         }
 
-        // Generar tarjeta por cada foto del JSON
-        grid.innerHTML = fotos.map(foto => `
-          <div class="foto-card" onclick="abrirLightbox('galeria/${foto.archivo}', '${escHtml(foto.nombre)}')">
-            <div class="foto-thumb">
-              <img
-                src="galeria/${foto.archivo}"
-                alt="${escHtml(foto.nombre)}"
-                loading="lazy"
-              />
-              <!-- loading="lazy": la imagen solo se carga cuando el usuario llega a ella -->
+        // Generar tarjeta por cada postre del JSON
+        grid.innerHTML = postres.map(postre => {
+          const mensaje = encodeURIComponent(`¡Hola! Quiero pedir el ${postre.nombre} 🍮`);
+          const linkPedir = `https://wa.me/${WHATSAPP_PEDIDOS}?text=${mensaje}`;
+
+          return `
+            <div class="producto-card">
+              <div class="producto-img" onclick="abrirLightbox('galeria/${postre.archivo}', '${escHtml(postre.nombre)}')" style="cursor:pointer;">
+                <img
+                  src="galeria/${postre.archivo}"
+                  alt="${escHtml(postre.nombre)}"
+                  loading="lazy"
+                />
+                <!-- loading="lazy": la imagen solo se carga cuando el usuario llega a ella -->
+              </div>
+              <div class="producto-info">
+                <div class="producto-nombre">${escHtml(postre.nombre)}</div>
+                <p class="producto-descripcion">${escHtml(postre.descripcion || '')}</p>
+                <div class="producto-footer">
+                  <span class="producto-precio">${escHtml(postre.precio || '$6.500')}</span>
+                  <a class="btn-pedir" href="${linkPedir}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Pide aquí</a>
+                </div>
+              </div>
             </div>
-            <div class="foto-info">
-              <div class="foto-nombre">${escHtml(foto.nombre)}</div>
-              <div class="foto-desc">${escHtml(foto.descripcion || '')}</div>
-            </div>
-          </div>
-        `).join('');
+          `;
+        }).join('');
 
       } catch (error) {
-        grid.innerHTML = mensajeVacio('📷', 'Sin galería aún', 'Crea el archivo galeria/galeria.json para mostrar tus fotos.');
+        grid.innerHTML = mensajeVacio('🛍️', 'Sin catálogo aún', 'Crea el archivo galeria/galeria.json para mostrar tus postres.');
         console.warn('galeria.json no encontrado:', error.message);
       }
     }
@@ -1693,64 +1579,6 @@
       } catch (error) {
         grid.innerHTML = mensajeVacio('🍮', 'Sin recetas aún', 'Crea el archivo recetas/recetas.json para mostrar tus recetas.');
         console.warn('recetas.json no encontrado:', error.message);
-      }
-    }
-
-
-    /*
-    ══════════════════════════════════════════════════════════════
-    FUNCIÓN: cargarCatalogo
-    Lee catalogo/catalogo.json y muestra las tarjetas de productos
-    ══════════════════════════════════════════════════════════════
-    */
-    async function cargarCatalogo() {
-      const grid = document.getElementById('catalogo-grid');
-      try {
-        const resp = await fetch('catalogo/catalogo.json');
-        if (!resp.ok) throw new Error('No se encontró catalogo.json');
-        const productos = await resp.json();
-
-        if (!productos || productos.length === 0) {
-          grid.innerHTML = mensajeVacio('🛍️', 'Catálogo vacío', 'Agrega productos en catalogo/catalogo.json');
-          return;
-        }
-
-        grid.innerHTML = productos.map(prod => {
-          // Si tiene imagen, mostrarla; si no, mostrar un ícono
-          const imgHTML = prod.imagen
-            ? `<img src="catalogo/${prod.imagen}" alt="${escHtml(prod.nombre)}" />`
-            : `<span class="placeholder-icon">🍮</span>`;
-
-          // Generar etiquetas de sabores disponibles
-          const saboresHTML = (prod.sabores || [])
-            .map(s => `<span class="sabor-tag">${escHtml(s)}</span>`)
-            .join('');
-
-          // Etiqueta de disponibilidad
-          const badge = prod.disponible !== false
-            ? '<span class="producto-badge">Disponible</span>'
-            : '<span class="producto-badge" style="background:#f5d5d5;color:var(--rosa-oscuro)">Agotado</span>';
-
-          return `
-            <div class="producto-card">
-              <div class="producto-img">${imgHTML}</div>
-              <div class="producto-info">
-                <div class="producto-categoria">${escHtml(prod.categoria || 'Postre')}</div>
-                <div class="producto-nombre">${escHtml(prod.nombre)}</div>
-                <p class="producto-descripcion">${escHtml(prod.descripcion || '')}</p>
-                ${saboresHTML ? `<div class="producto-sabores">${saboresHTML}</div>` : ''}
-                <div class="producto-footer">
-                  <span class="producto-precio">${escHtml(prod.precio)}</span>
-                  ${badge}
-                </div>
-              </div>
-            </div>
-          `;
-        }).join('');
-
-      } catch (error) {
-        grid.innerHTML = mensajeVacio('🛍️', 'Sin catálogo aún', 'Crea el archivo catalogo/catalogo.json para mostrar tus productos.');
-        console.warn('catalogo.json no encontrado:', error.message);
       }
     }
 

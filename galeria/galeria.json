@@ -2,21 +2,25 @@
   {
     "nombre": "Postre de Maracuyá",
     "descripcion": "Nuestro bestseller con topping de maracuyá natural",
+    "precio": "$6.500",
     "archivo": "maracuya.png"
   },
   {
     "nombre": "Postre de Oreo",
     "descripcion": "Cremoso y crocante, con trozos de galleta Oreo",
+    "precio": "$6.500",
     "archivo": "oreo.png"
   },
   {
     "nombre": "Postre de Arequipe",
     "descripcion": "Suave y dulce, con arequipe casero",
+    "precio": "$6.500",
     "archivo": "postre-arequipe.jpg"
   },
   {
     "nombre": "Postre Milo",
     "descripcion": "El favorito de los más pequeños",
+    "precio": "$6.500",
     "archivo": "milo.png"
   }
-  ]
+]
