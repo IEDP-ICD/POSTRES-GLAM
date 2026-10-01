@@ -114,6 +114,12 @@
     .slide.activa .slide-inner > *:nth-child(4) { transition-delay: 0.29s; }
     .slide.activa .slide-inner > *:nth-child(5) { transition-delay: 0.37s; }
 
+    /* Desactiva transiciones/animaciones mientras se mide una diapositiva
+       en su estado final real (evita medir a mitad de una animación) */
+    .sin-transicion, .sin-transicion * {
+      transition: none !important; animation: none !important;
+    }
+
     /* ═══ Tipografía ═══ */
     .eyebrow {
       font-size: clamp(1.15rem, 2.7vh, 1.55rem); font-weight: 500; letter-spacing: .2em;
@@ -923,19 +929,62 @@
     (que escala tipografías, paddings y espaciados) hasta que quepa
     o hasta llegar a un límite mínimo legible.
     */
-    const ESCALA_MIN = 0.6;
-    const PASO_ESCALA = 0.04;
-    const TOLERANCIA_PX = 3;
+    const ESCALA_MIN = 0.72;
+    const PASO_ESCALA = 0.02;
+    // .slide-inner en sí siempre tiene un margen estructural de ruido
+    // (sombras, redondeos de subpíxel en grid/flex) de hasta ~16-18px que
+    // NO implica texto recortado; las tarjetas individuales no tienen ese
+    // margen, así que cualquier desborde ahí es texto real perdiéndose.
+    const TOLERANCIA_SLIDE_INNER_PX = 18;
+    const TOLERANCIA_COMPONENTE_PX = 2;
+
+    /*
+    ¿Hay contenido real recortado en la diapositiva? No basta con mirar
+    .slide-inner: las tarjetas (.tarjeta, .mv-card, .objetivo-general, etc.)
+    tienen su propio overflow:hidden, así que si el texto se recorta DENTRO
+    de una tarjeta, ese recorte nunca se refleja en el alto de .slide-inner
+    (el contenedor nunca se entera: el hijo simplemente lo oculta). Por eso
+    hay que revisar cada elemento con overflow no visible por separado.
+    */
+    function hayDesbordeReal(slide) {
+      let hay = false;
+      slide.querySelectorAll('*').forEach(el => {
+        const estilo = getComputedStyle(el);
+        if (estilo.overflowY === 'hidden' || estilo.overflowY === 'clip' || estilo.overflow === 'hidden' || estilo.overflow === 'clip') {
+          const diff = el.scrollHeight - el.clientHeight;
+          const tolerancia = el.classList.contains('slide-inner') ? TOLERANCIA_SLIDE_INNER_PX : TOLERANCIA_COMPONENTE_PX;
+          if (diff > tolerancia) hay = true;
+        }
+      });
+      return hay;
+    }
 
     function ajustarSlide(slide) {
       const inner = slide.querySelector('.slide-inner');
       if (!inner) return;
+      // Mide en el estado final real (la misma clase .activa que usa la
+      // navegación), con transiciones desactivadas, para no medir a mitad
+      // de la animación de entrada ni aproximar ese estado a mano.
+      const yaEraActiva = slide.classList.contains('activa');
+      document.body.classList.add('sin-transicion');
+      if (!yaEraActiva) slide.classList.add('activa');
       let escala = 1;
       inner.style.setProperty('--fit-scale', escala);
-      while (inner.scrollHeight > inner.clientHeight + TOLERANCIA_PX && escala > ESCALA_MIN) {
+      while (hayDesbordeReal(slide) && escala > ESCALA_MIN) {
         escala = Math.max(ESCALA_MIN, escala - PASO_ESCALA);
         inner.style.setProperty('--fit-scale', escala);
       }
+      // Margen de seguridad: el texto puede asentarse con una o dos líneas
+      // más una vez termina de renderizarse de verdad (hinting de fuentes,
+      // repintados reales) de lo que se alcanza a medir aquí. Un par de
+      // pasos extra de margen evita que ese pequeño margen termine
+      // cortando texto en el uso real.
+      if (escala < 1) {
+        escala = Math.max(ESCALA_MIN, escala - PASO_ESCALA * 3);
+        inner.style.setProperty('--fit-scale', escala);
+      }
+      if (!yaEraActiva) slide.classList.remove('activa');
+      document.body.classList.remove('sin-transicion');
     }
 
     function ajustarTodasLasSlides() {
